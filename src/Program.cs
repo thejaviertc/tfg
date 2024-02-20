@@ -6,7 +6,14 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Middlewares
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+else
+{
+    app.UseHttpsRedirection();
+    app.UseHsts();
+}
+
 app.UseAuthorization();
 
 app.MapControllers();
