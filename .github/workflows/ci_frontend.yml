@@ -1,0 +1,30 @@
+name: 🔨 CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/ClientApp
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📗 Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/iron"
+
+      - name: 🔨 Build Project
+        run: |
+          npm ci
+          npm run build
+
+      - name: 🧪 Test Project
+        run: npm run test
