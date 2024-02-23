@@ -7,11 +7,11 @@ var app = builder.Build();
 
 // Middlewares
 if (app.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage();
+	app.UseDeveloperExceptionPage();
 else
 {
-    app.UseHttpsRedirection();
-    app.UseHsts();
+	app.UseHttpsRedirection();
+	app.UseHsts();
 }
 
 app.UseAuthorization();
