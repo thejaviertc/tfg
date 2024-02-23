@@ -2,7 +2,8 @@ name: 🔨 CI
 
 on:
   push:
-    branches: [main]
+    paths:
+      - src/ClientApp/**
 
 jobs:
   CI:
