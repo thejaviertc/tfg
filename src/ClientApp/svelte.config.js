@@ -9,6 +9,7 @@ const config = {
 		adapter: adapter({
 			pages: "build",
 			assets: "build",
+			strict: false,
 		}),
 		alias: {
 			$components: "src/components",
