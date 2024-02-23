@@ -2,9 +2,8 @@ name: 🔨 CI Backend
 
 on:
   push:
-    paths:
-      - ./**
-      - "!src/ClientApp/**"
+    paths-ignore:
+      - "src/ClientApp/**"
 
 jobs:
   CI:
