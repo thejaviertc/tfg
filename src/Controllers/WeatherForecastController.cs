@@ -21,8 +21,6 @@ public class WeatherForecastController : ControllerBase
 		"Scorching"
 	};
 
-	public WeatherForecastController() { }
-
 	[HttpGet]
 	public IEnumerable<WeatherForecast> Get()
 	{
