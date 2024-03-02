@@ -1,7 +1,7 @@
 {
 	"name": "temporal-name-frontend",
 	"author": "javiertc",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.1",
