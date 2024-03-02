@@ -9,7 +9,12 @@ const config = {
 		},
 	},
 	test: {
-		include: ["src/**/*.{test,spec}.{js,ts}"],
+		environment: "jsdom",
+		reporter: "verbose",
+		coverage: {
+			all: true,
+			include: ["src/**/*.{js,ts,svelte}"],
+		},
 	},
 };
 
