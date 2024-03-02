@@ -35,3 +35,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
+
+      - name: 🔎 SonarCloud Scan
+        uses: highbyte/sonarscan-dotnet@v2.3.2
+        with:
+          sonarProjectKey: thejaviertc_tfg_backend
+          sonarProjectName: thejaviertc_tfg_backend
+          sonarOrganization: thejaviertc
+          sonarBeginArguments: /d:sonar.exclusions="ClientApp/**"
