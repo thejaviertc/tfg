@@ -2,6 +2,7 @@
 
 namespace src.Controllers;
 
+// TODO: Remove
 [ApiController]
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase
