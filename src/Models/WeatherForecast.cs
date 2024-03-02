@@ -1,5 +1,6 @@
 namespace src;
 
+// TODO: Remove
 public class WeatherForecast
 {
 	public DateTime Date { get; set; }
