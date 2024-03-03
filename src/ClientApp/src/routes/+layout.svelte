@@ -2,11 +2,24 @@
 	import "../app.scss";
 
 	import Button from "$components/Button.svelte";
+
 	import { faBars, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
+	import { onMount } from "svelte";
+
+	let navbarColor: string = "accent";
+
+	onMount(() => {
+		window.onscroll = () => {
+			navbarColor =
+				document.body.scrollTop >= 100 || document.documentElement.scrollTop >= 100
+					? "primary"
+					: "accent";
+		};
+	});
 </script>
 
-<nav class="navbar bg-accent fixed">
+<nav class="navbar bg-{navbarColor} fixed">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<button tabindex="-1" class="btn btn-ghost lg:hidden pr-0"><Fa icon={faBars} /></button>
