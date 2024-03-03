@@ -9,7 +9,7 @@
 	<title>TFG Temporal Name</title>
 </svelte:head>
 
-<div class="hero min-h-screen bg-accent">
+<div class="hero min-h-screen bg-primary">
 	<div class="hero-content flex-row">
 		<div class="text-center lg:text-left">
 			<h1>TFG Temporal Name</h1>
@@ -37,7 +37,7 @@
 					id="email"
 					type="email"
 					placeholder="Email"
-					class="input input-bordered input-primary"
+					class="input input-bordered input-accent"
 					required
 				/>
 				<label for="password" class="label">Contraseña</label>
@@ -45,15 +45,15 @@
 					id="password"
 					type="password"
 					placeholder="Contraseña"
-					class="input input-bordered input-primary"
+					class="input input-bordered input-accent"
 					required
 				/>
 				<div class="mt-6 mx-auto flex flex-col gap-2">
-					<button type="submit" class="btn btn-accent">
+					<button type="submit" class="btn btn-primary">
 						<Fa class="mr-2" icon={faUser} />
 						Iniciar Sesión
 					</button>
-					<Button class="btn-accent" faIcon={faAddressCard} link="/">Registrarse</Button>
+					<Button class="btn-primary" faIcon={faAddressCard} link="/">Registrarse</Button>
 				</div>
 			</form>
 		</div>

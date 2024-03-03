@@ -9,10 +9,9 @@ export default {
 		themes: [
 			{
 				upm: {
-					"primary": "#FAFAFA",
-					"secondary": "#E5E5E5",
-					"accent": "#2581C4",
-					"neutral": "#202020",
+					primary: "#2581C4",
+					secondary: "#E5E5E5",
+					accent: "#202020",
 				},
 			},
 		],
