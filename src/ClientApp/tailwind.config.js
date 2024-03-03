@@ -17,5 +17,5 @@ export default {
 			},
 		],
 	},
-	safelist: ["bg-primary", "bg-secondary", "btn-primary", "btn-secondary"],
+	safelist: ["bg-primary", "bg-secondary", "bg-accent", "btn-primary", "btn-secondary"],
 };

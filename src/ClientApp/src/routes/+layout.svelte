@@ -1,5 +1,38 @@
 <script lang="ts">
 	import "../app.scss";
+
+	import Button from "$components/Button.svelte";
+	import { faBars, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+	import Fa from "svelte-fa";
 </script>
 
+<nav class="navbar bg-accent fixed">
+	<div class="navbar-start">
+		<div class="dropdown">
+			<button tabindex="-1" class="btn btn-ghost lg:hidden pr-0"><Fa icon={faBars} /></button>
+			<ul
+				tabindex="-1"
+				class="menu menu-sm dropdown-content mt-4 ml-1 p-2 shadow bg-secondary rounded-box w-64"
+			>
+				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Temporal</Button>
+				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">
+					Temporal 2
+				</Button>
+				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Temporal 3</Button
+				>
+			</ul>
+		</div>
+		<Button class="btn-ghost pl-2" link="/">
+			<img class="w-14" src="./upm.png" alt="Logo UPM" />
+			TFG Temporal Name
+		</Button>
+	</div>
+	<div class="navbar-end hidden lg:flex">
+		<ul class="menu menu-horizontal px-1">
+			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Temporal</Button>
+			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Temporal 2</Button>
+			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Temporal 3</Button>
+		</ul>
+	</div>
+</nav>
 <slot />
