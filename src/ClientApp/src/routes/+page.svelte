@@ -1,7 +1,8 @@
-<script>
-	import Button from "$components/Button.svelte";
+<script lang="ts">
 	import { faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
+
+	let registerModal: HTMLElement;
 </script>
 
 <svelte:head>
@@ -31,7 +32,7 @@
 			</p>
 		</div>
 		<div class="card bg-secondary ml-10">
-			<form action="/ada" class="card-body">
+			<form class="card-body">
 				<label for="email" class="label">Email</label>
 				<input
 					id="email"
@@ -53,9 +54,65 @@
 						<Fa class="mr-2" icon={faUser} />
 						Iniciar Sesión
 					</button>
-					<Button class="btn-primary" faIcon={faAddressCard} link="/">Registrarse</Button>
+					<button on:click={registerModal.showModal()} class="btn btn-primary">
+						<Fa class="mr-2" icon={faAddressCard} />
+						Crear Cuenta
+					</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<dialog bind:this={registerModal} class="modal">
+	<div class="modal-box bg-secondary">
+		<form method="dialog">
+			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+		</form>
+		<h3 class="text-black">Regístrate:</h3>
+		<form class="card-body" action="/api/auth/register" method="POST">
+			<label for="name" class="label">Nombre:</label>
+			<input
+				id="name"
+				name="name"
+				type="text"
+				placeholder="Nombre"
+				class="input input-bordered input-accent"
+				required
+			/>
+			<label for="surname" class="label">Apellidos:</label>
+			<input
+				id="surname"
+				name="surname"
+				type="text"
+				placeholder="Apellidos"
+				class="input input-bordered input-accent"
+				required
+			/>
+			<label for="email" class="label">Email:</label>
+			<input
+				id="email"
+				name="email"
+				type="email"
+				placeholder="Email"
+				class="input input-bordered input-accent"
+				required
+			/>
+			<label for="password" class="label">Contraseña:</label>
+			<input
+				id="password"
+				name="password"
+				type="password"
+				minlength="6"
+				placeholder="Contraseña"
+				class="input input-bordered input-accent"
+				required
+			/>
+			<div class="mt-6 mx-auto flex flex-col gap-2">
+				<button type="submit" class="btn btn-primary">
+					<Fa class="mr-2" icon={faAddressCard} />
+					Crear Cuenta
+				</button>
+			</div>
+		</form>
+	</div>
+</dialog>
