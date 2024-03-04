@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TfgTemporalName.Models;
 
 namespace TfgTemporalName.Controllers;
 

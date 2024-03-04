@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
