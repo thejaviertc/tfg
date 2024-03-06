@@ -12,7 +12,7 @@
 	onMount(() => {
 		window.onscroll = () => {
 			navbarColor =
-				document.body.scrollTop >= 100 || document.documentElement.scrollTop >= 100
+				document.body.scrollTop >= 50 || document.documentElement.scrollTop >= 50
 					? "primary"
 					: "accent";
 		};
