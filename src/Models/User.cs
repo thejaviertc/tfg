@@ -11,14 +11,14 @@ public class User
 	public int UserId { get; set; }
 
 	[Column(TypeName = "VARCHAR(30)")]
-	public string Name { get; set; }
+	public required string Name { get; set; }
 
 	[Column(TypeName = "VARCHAR(60)")]
-	public string Surname { get; set; }
+	public required string Surname { get; set; }
 
 	[Column(TypeName = "VARCHAR(255)")]
-	public string Email { get; set; }
+	public required string Email { get; set; }
 
 	[Column(TypeName = "VARCHAR(255)")]
-	public string Password { get; set; }
+	public required string Password { get; set; }
 }
