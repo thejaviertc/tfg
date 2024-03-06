@@ -15,6 +15,6 @@ public class TfgTemporalNameContext : DbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseMySQL(_configuration["MySQLConnectionString"]!);
+		optionsBuilder.UseMySQL(_configuration["MySQLConnectionString"]!).UseSnakeCaseNamingConvention();
 	}
 }
