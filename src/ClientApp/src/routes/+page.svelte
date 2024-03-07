@@ -29,7 +29,7 @@
 			publicada para evitar plagios/robos de ideas).
 		</h5>
 		<div>
-			<Button class="btn-accent" link="/auth" faIcon={faAddressCard}>Crear Cuenta</Button>
+			<Button class="btn-accent" link="/registro" faIcon={faAddressCard}>Crear Cuenta</Button>
 			<Button class="btn-accent" link="/" faIcon={faUser}>Iniciar Sesión</Button>
 		</div>
 	</div>
