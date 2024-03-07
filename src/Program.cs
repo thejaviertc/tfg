@@ -1,7 +1,14 @@
+using TfgTemporalName.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+
+builder.Services.AddDbContext<TfgTemporalNameContext>();
+
+// TODO: Disable on release
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var app = builder.Build();
 

@@ -9,13 +9,12 @@ export default {
 		themes: [
 			{
 				upm: {
-					"primary": "#FAFAFA",
-					"secondary": "#E5E5E5",
-					"accent": "#2581C4",
-					"neutral": "#202020",
+					primary: "#2581C4",
+					secondary: "#E5E5E5",
+					accent: "#202020",
 				},
 			},
 		],
 	},
-	safelist: ["bg-primary", "bg-secondary", "btn-primary", "btn-secondary"],
+	safelist: ["bg-primary", "bg-secondary", "bg-accent", "btn-primary", "btn-secondary"],
 };
