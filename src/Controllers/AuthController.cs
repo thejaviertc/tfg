@@ -7,9 +7,12 @@ namespace TfgTemporalName.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public partial class AuthController : ControllerBase
 {
 	private readonly TfgTemporalNameContext _context;
+
+	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
+	private static partial Regex UpmRegex();
 
 	public AuthController(TfgTemporalNameContext context)
 	{
@@ -25,7 +28,7 @@ public class AuthController : ControllerBase
 		if (!ModelState.IsValid)
 			return BadRequest();
 
-		if (!Regex.IsMatch(user.Email, @"^.+@(alumnos\.)?upm\.es$"))
+		if (!UpmRegex().IsMatch(user.Email))
 			return BadRequest(new { Message = "Esta dirección de correo electrónico no pertenece a la UPM" });
 
 		if (_context.Users.Any(u => u.Email == user.Email))
