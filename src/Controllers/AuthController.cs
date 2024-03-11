@@ -1,6 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TfgTemporalName.Models;
 
 namespace TfgTemporalName.Controllers;
@@ -11,12 +15,15 @@ public partial class AuthController : ControllerBase
 {
 	private readonly TfgTemporalNameContext _context;
 
+	private readonly IConfiguration _configuration;
+
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmRegex();
 
-	public AuthController(TfgTemporalNameContext context)
+	public AuthController(TfgTemporalNameContext context, IConfiguration configuration)
 	{
 		_context = context;
+		_configuration = configuration;
 
 		// TODO: Remove
 		_context.Database.EnsureCreated();
@@ -43,5 +50,32 @@ public partial class AuthController : ControllerBase
 		_context.SaveChanges();
 
 		return Ok();
+	}
+
+	[HttpPost("login")]
+	public ActionResult Login([FromForm] LoginRequest loginData)
+	{
+		User? user = _context.Users.FirstOrDefault(u => u.Email == loginData.Email);
+
+		if (
+			user is null
+			|| new PasswordHasher<User>().VerifyHashedPassword(user, user.Password, loginData.Password)
+				== PasswordVerificationResult.Failed
+		)
+			return BadRequest(new { Message = "El Email o la Contraseña es incorrecto" });
+
+		var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+
+		var securityToken = new JwtSecurityToken(
+			_configuration["Jwt:Issuer"],
+			_configuration["Jwt:Issuer"],
+			null,
+			expires: DateTime.Now.AddMinutes(120),
+			signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
+		);
+
+		var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+
+		return Ok(new { sessionId = token });
 	}
 }
