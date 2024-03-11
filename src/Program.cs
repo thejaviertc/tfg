@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using TfgTemporalName.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<TfgTemporalNameContext>();
+
+builder
+	.Services.AddAuthentication(options =>
+	{
+		options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+	})
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidIssuer = builder.Configuration["Jwt:Issuer"],
+			ValidAudience = builder.Configuration["Jwt:Audience"],
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+			ValidateIssuerSigningKey = true
+		};
+	});
+
+builder.Services.AddAuthorization();
 
 // TODO: Disable on release
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -21,6 +44,7 @@ else
 	app.UseHsts();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

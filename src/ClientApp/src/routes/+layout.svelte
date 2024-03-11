@@ -3,9 +3,9 @@
 
 	import Button from "$components/Button.svelte";
 
-	import { faBars, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-	import Fa from "svelte-fa";
+	import { faBars, faTriangleExclamation, faUser } from "@fortawesome/free-solid-svg-icons";
 	import { onMount } from "svelte";
+	import Fa from "svelte-fa";
 
 	let navbarColor: string = "accent";
 
@@ -29,7 +29,7 @@
 			>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace</Button>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
-				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 3</Button>
+				<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
 			</ul>
 		</div>
 		<Button class="btn-ghost pl-2" link="/">
@@ -41,7 +41,7 @@
 		<ul class="menu menu-horizontal px-1">
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 1</Button>
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
-			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 3</Button>
+			<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
 		</ul>
 	</div>
 </nav>
