@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -68,8 +67,7 @@ public partial class AuthController : ControllerBase
 
 		var securityToken = new JwtSecurityToken(
 			_configuration["Jwt:Issuer"],
-			_configuration["Jwt:Issuer"],
-			null,
+			_configuration["Jwt:Audience"],
 			expires: DateTime.Now.AddMinutes(120),
 			signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
 		);
