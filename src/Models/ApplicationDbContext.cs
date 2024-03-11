@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TfgTemporalName.Models;
 
-public class TfgTemporalNameContext : DbContext
+public class ApplicationDbContext : DbContext
 {
 	public DbSet<User> Users { get; set; }
 
 	private readonly IConfiguration _configuration;
 
-	public TfgTemporalNameContext(IConfiguration configuration)
+	public ApplicationDbContext(IConfiguration configuration)
 	{
 		_configuration = configuration;
 	}

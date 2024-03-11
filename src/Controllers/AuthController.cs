@@ -12,20 +12,20 @@ namespace TfgTemporalName.Controllers;
 [Route("api/[controller]")]
 public partial class AuthController : ControllerBase
 {
-	private readonly TfgTemporalNameContext _context;
+	private readonly ApplicationDbContext _dbContext;
 
 	private readonly IConfiguration _configuration;
 
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmRegex();
 
-	public AuthController(TfgTemporalNameContext context, IConfiguration configuration)
+	public AuthController(ApplicationDbContext dbContext, IConfiguration configuration)
 	{
-		_context = context;
+		_dbContext = dbContext;
 		_configuration = configuration;
 
 		// TODO: Remove
-		_context.Database.EnsureCreated();
+		_dbContext.Database.EnsureCreated();
 	}
 
 	[HttpPost("register")]
@@ -37,7 +37,7 @@ public partial class AuthController : ControllerBase
 		if (!UpmRegex().IsMatch(user.Email))
 			return BadRequest(new { Message = "Esta dirección de correo electrónico no pertenece a la UPM" });
 
-		if (_context.Users.Any(u => u.Email == user.Email))
+		if (_dbContext.Users.Any(u => u.Email == user.Email))
 			return Conflict(new { Message = "Este correo ya está siendo usado" });
 
 		if (user.Password.Length < 6)
@@ -45,8 +45,8 @@ public partial class AuthController : ControllerBase
 
 		user.Password = new PasswordHasher<User>().HashPassword(user, user.Password);
 
-		_context.Users.Add(user);
-		_context.SaveChanges();
+		_dbContext.Users.Add(user);
+		_dbContext.SaveChanges();
 
 		return Ok();
 	}
@@ -54,7 +54,7 @@ public partial class AuthController : ControllerBase
 	[HttpPost("login")]
 	public ActionResult Login([FromForm] LoginRequest loginData)
 	{
-		User? user = _context.Users.FirstOrDefault(u => u.Email == loginData.Email);
+		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginData.Email);
 
 		if (
 			user is null

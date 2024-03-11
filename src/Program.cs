@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Services
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<TfgTemporalNameContext>();
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 builder
 	.Services.AddAuthentication(options =>
