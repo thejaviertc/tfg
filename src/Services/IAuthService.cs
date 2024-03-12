@@ -6,7 +6,7 @@ public interface IAuthService
 {
 	public bool IsEmailAlreadyUsed(string email);
 
-	public string GetHashedPassword(User user);
+	public string GenerateHashedPassword(User user);
 
 	public User? GetAuthenticatedUser(LoginRequest loginRequest);
 

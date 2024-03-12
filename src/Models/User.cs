@@ -26,6 +26,10 @@ public partial class User
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();
 
+	/// <summary>
+	/// Checks if the Email is from the UPM domain
+	/// </summary>
+	/// <returns></returns>
 	public bool IsEmailFromUpm()
 	{
 		return UpmEmailRegex().IsMatch(Email);

@@ -29,16 +29,31 @@ public class AuthService : IAuthService
 		_passwordHasher = new PasswordHasher<User>();
 	}
 
+	/// <summary>
+	/// Checks if the provided email is already used by other User
+	/// </summary>
+	/// <param name="email">The email to check</param>
+	/// <returns></returns>
 	public bool IsEmailAlreadyUsed(string email)
 	{
 		return _dbContext.Users.Any(u => u.Email == email);
 	}
 
-	public string GetHashedPassword(User user)
+	/// <summary>
+	/// Obtains the Hash of the password depending of the User
+	/// </summary>
+	/// <param name="user"></param>
+	/// <returns></returns>
+	public string GenerateHashedPassword(User user)
 	{
 		return _passwordHasher.HashPassword(user, user.Password);
 	}
 
+	/// <summary>
+	/// Returns the User from the Database if the authentication is valid
+	/// </summary>
+	/// <param name="loginRequest">User data from the form in the Frontend</param>
+	/// <returns></returns>
 	public User? GetAuthenticatedUser(LoginRequest loginRequest)
 	{
 		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
@@ -49,12 +64,22 @@ public class AuthService : IAuthService
 		return user;
 	}
 
+	/// <summary>
+	/// Checks if the password provided is the password of the User
+	/// </summary>
+	/// <param name="user">The User which tries to login</param>
+	/// <param name="password">The password that is going to be checked</param>
+	/// <returns></returns>
 	private bool IsValidPassword(User user, string password)
 	{
 		return _passwordHasher.VerifyHashedPassword(user, user.Password, password)
 			== PasswordVerificationResult.Success;
 	}
 
+	/// <summary>
+	/// Obtains a new JWT for the User
+	/// </summary>
+	/// <returns></returns>
 	public string GenerateJwt()
 	{
 		var securityToken = new JwtSecurityToken(

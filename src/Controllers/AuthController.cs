@@ -21,6 +21,11 @@ public class AuthController : ControllerBase
 		_dbContext.Database.EnsureCreated();
 	}
 
+	/// <summary>
+	/// Inserts a new valid User into the database
+	/// </summary>
+	/// <param name="user">User data from the form in the Frontend</param>
+	/// <returns></returns>
 	[HttpPost("register")]
 	public ActionResult RegisterUser([FromForm] User user)
 	{
@@ -36,7 +41,7 @@ public class AuthController : ControllerBase
 		if (user.Password.Length < 6)
 			return BadRequest(new { Message = "La contraseña tiene que tener un mínimo de 6 carácteres" });
 
-		user.Password = _authService.GetHashedPassword(user);
+		user.Password = _authService.GenerateHashedPassword(user);
 
 		_dbContext.Users.Add(user);
 		_dbContext.SaveChanges();
@@ -44,10 +49,15 @@ public class AuthController : ControllerBase
 		return Ok();
 	}
 
+	/// <summary>
+	/// Authenticates a valid User and returns a new JWT
+	/// </summary>
+	/// <param name="loginRequest">Login Request from the form in the Frontend</param>
+	/// <returns></returns>
 	[HttpPost("login")]
-	public ActionResult Login([FromForm] LoginRequest loginData)
+	public ActionResult Login([FromForm] LoginRequest loginRequest)
 	{
-		User? user = _authService.GetAuthenticatedUser(loginData);
+		User? user = _authService.GetAuthenticatedUser(loginRequest);
 
 		if (user is null)
 			return BadRequest(new { Message = "El Email o la Contraseña es incorrecto" });
