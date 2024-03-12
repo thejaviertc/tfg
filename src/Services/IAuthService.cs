@@ -1,5 +1,7 @@
 using TfgTemporalName.Models;
 
+namespace TfgTemporalName.Services;
+
 public interface IAuthService
 {
 	public bool IsEmailAlreadyUsed(string email);

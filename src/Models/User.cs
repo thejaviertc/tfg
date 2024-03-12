@@ -26,8 +26,8 @@ public partial class User
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();
 
-	public static bool IsEmailFromUpm(string email)
+	public bool IsEmailFromUpm()
 	{
-		return UpmEmailRegex().IsMatch(email);
+		return UpmEmailRegex().IsMatch(Email);
 	}
 }

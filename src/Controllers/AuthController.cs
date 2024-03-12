@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TfgTemporalName.Models;
+using TfgTemporalName.Services;
 
 namespace TfgTemporalName.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public partial class AuthController : ControllerBase
+public class AuthController : ControllerBase
 {
 	private readonly ApplicationDbContext _dbContext;
 
@@ -26,7 +27,7 @@ public partial class AuthController : ControllerBase
 		if (!ModelState.IsValid)
 			return BadRequest();
 
-		if (!Models.User.IsEmailFromUpm(user.Email))
+		if (!user.IsEmailFromUpm())
 			return BadRequest(new { Message = "Esta dirección de correo electrónico no pertenece a la UPM" });
 
 		if (_authService.IsEmailAlreadyUsed(user.Email))
