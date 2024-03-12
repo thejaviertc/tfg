@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace TfgTemporalName.Models;
 
 [Table("user")]
-public class User
+public partial class User
 {
 	[Key]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,4 +22,12 @@ public class User
 
 	[Column(TypeName = "VARCHAR(255)")]
 	public required string Password { get; set; }
+
+	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
+	private static partial Regex UpmEmailRegex();
+
+	public static bool IsEmailFromUpm(string email)
+	{
+		return UpmEmailRegex().IsMatch(email);
+	}
 }
