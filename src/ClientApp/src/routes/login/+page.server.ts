@@ -21,6 +21,13 @@ export const actions = {
 			maxAge: 60 * 120,
 		});
 
-		return { success: true };
+		return {
+			success: true,
+			user: {
+				name: data.name,
+				surname: data.surname,
+				email: data.email,
+			},
+		};
 	},
 } satisfies Actions;

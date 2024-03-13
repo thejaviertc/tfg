@@ -62,6 +62,14 @@ public class AuthController : ControllerBase
 		if (user is null)
 			return BadRequest(new { Message = "El Email o la Contraseña es incorrecto" });
 
-		return Ok(new { sessionId = _authService.GenerateJwt() });
+		return Ok(
+			new
+			{
+				sessionId = _authService.GenerateJwt(),
+				name = user.Name,
+				surname = user.Surname,
+				email = user.Email
+			}
+		);
 	}
 }

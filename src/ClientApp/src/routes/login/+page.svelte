@@ -3,8 +3,13 @@
 	import Fa from "svelte-fa";
 
 	import type { ActionData } from "./$types";
+	import user from "$lib/stores/user";
 
 	export let form: ActionData;
+
+	if (form?.success) {
+		user.set(form.user);
+	}
 </script>
 
 <section>
