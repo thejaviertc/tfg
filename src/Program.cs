@@ -20,6 +20,7 @@ builder
 	})
 	.AddJwtBearer(options =>
 	{
+		options.MapInboundClaims = false;
 		options.TokenValidationParameters = new TokenValidationParameters
 		{
 			ValidIssuer = builder.Configuration["Jwt:Issuer"],

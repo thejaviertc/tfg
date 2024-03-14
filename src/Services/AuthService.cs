@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -67,7 +68,7 @@ public class AuthService : IAuthService
 	/// <summary>
 	/// Checks if the password provided is the password of the User
 	/// </summary>
-	/// <param name="user">The User which tries to login</param>
+	/// <param name="user">The User who tries to login</param>
 	/// <param name="password">The password that is going to be checked</param>
 	/// <returns></returns>
 	private bool IsValidPassword(User user, string password)
@@ -79,12 +80,16 @@ public class AuthService : IAuthService
 	/// <summary>
 	/// Obtains a new JWT for the User
 	/// </summary>
+	/// <param name="user">The User who is going to receive the JWT</param>
 	/// <returns></returns>
-	public string GenerateJwt()
+	public string GenerateJwt(User user)
 	{
+		var claims = new List<Claim> { new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()) };
+
 		var securityToken = new JwtSecurityToken(
 			_configuration["Jwt:Issuer"],
 			_configuration["Jwt:Audience"],
+			claims,
 			expires: DateTime.Now.AddMinutes(120),
 			signingCredentials: _signingCredentials
 		);

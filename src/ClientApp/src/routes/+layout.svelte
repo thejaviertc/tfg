@@ -6,7 +6,7 @@
 	import { faBars, faTriangleExclamation, faUser } from "@fortawesome/free-solid-svg-icons";
 	import { onMount } from "svelte";
 	import Fa from "svelte-fa";
-	import user from "$lib/stores/user";
+	import type { PageData } from "./$types";
 
 	let navbarColor: string = "accent";
 
@@ -18,6 +18,8 @@
 					: "accent";
 		};
 	});
+
+	export let data: PageData;
 </script>
 
 <nav class="navbar bg-{navbarColor} fixed">
@@ -30,10 +32,10 @@
 			>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace</Button>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
-				{#if $user}
+				{#if data.user}
 					<Button class="btn-ghost" faIcon={faUser} link="/">
-						Bienvenido, {$user.name}
-						{$user.surname}
+						Bienvenido, {data.user.name}
+						{data.user.surname}
 					</Button>
 				{:else}
 					<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
@@ -49,10 +51,10 @@
 		<ul class="menu menu-horizontal px-1">
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 1</Button>
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
-			{#if $user}
+			{#if data.user}
 				<Button class="btn-ghost" faIcon={faUser} link="/">
-					Bienvenido, {$user.name}
-					{$user.surname}
+					Bienvenido, {data.user.name}
+					{data.user.surname}
 				</Button>
 			{:else}
 				<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>

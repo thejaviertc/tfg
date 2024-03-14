@@ -10,5 +10,5 @@ public interface IAuthService
 
 	public User? GetAuthenticatedUser(LoginRequest loginRequest);
 
-	public string GenerateJwt();
+	public string GenerateJwt(User user);
 }
