@@ -11,11 +11,6 @@
 	<div class="min-h-screen hero">
 		<div class="bg-secondary p-6 rounded-xl">
 			<h3 class="text-black">Iniciar Sesión:</h3>
-			{#if form?.success}
-				<div role="alert" class="alert alert-success mt-5">
-					Has iniciado sesión correctamente!
-				</div>
-			{/if}
 			{#if form?.message}
 				<div role="alert" class="alert alert-error mt-5">
 					{form.message}
