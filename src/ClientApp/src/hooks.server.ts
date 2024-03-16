@@ -3,13 +3,13 @@ import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (event.locals.user) {
-		return await resolve(event);
+		return resolve(event);
 	}
 
 	const sessionId = event.cookies.get("session_id");
 
 	if (!sessionId) {
-		return await resolve(event);
+		return resolve(event);
 	}
 
 	const response = await fetch(`${API_URL}/auth/me`, {
@@ -20,10 +20,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 
 	if (!response.ok) {
-		return await resolve(event);
+		return resolve(event);
 	}
 
 	event.locals.user = await response.json();
 
-	return await resolve(event);
+	return resolve(event);
 };
