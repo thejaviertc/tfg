@@ -1,9 +1,10 @@
+import { API_URL } from "$lib/constants";
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 
-export const actions = {
+export const actions: Actions = {
 	register: async ({ request }) => {
-		const response = await fetch("http://localhost:5173/api/auth/register", {
+		const response = await fetch(`${API_URL}/auth/register`, {
 			method: "POST",
 			body: await request.formData(),
 		});
@@ -16,4 +17,4 @@ export const actions = {
 
 		return { success: true };
 	},
-} satisfies Actions;
+};

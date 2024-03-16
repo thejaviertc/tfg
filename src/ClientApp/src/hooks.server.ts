@@ -1,3 +1,4 @@
+import { API_URL } from "$lib/constants";
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -11,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event);
 	}
 
-	const response = await fetch("http://localhost:5173/api/auth/me", {
+	const response = await fetch(`${API_URL}/auth/me`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${sessionId}`,
