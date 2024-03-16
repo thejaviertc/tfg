@@ -3,6 +3,7 @@
 
 	import Button from "$components/Button.svelte";
 
+	import { applyAction, enhance } from "$app/forms";
 	import { faBars, faTriangleExclamation, faUser } from "@fortawesome/free-solid-svg-icons";
 	import { onMount } from "svelte";
 	import Fa from "svelte-fa";
@@ -32,14 +33,7 @@
 			>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace</Button>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
-				{#if data.user}
-					<Button class="btn-ghost" faIcon={faUser} link="/">
-						Bienvenido, {data.user.name}
-						{data.user.surname}
-					</Button>
-				{:else}
-					<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
-				{/if}
+				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 3</Button>
 			</ul>
 		</div>
 		<Button class="btn-ghost pl-2" link="/">
@@ -52,10 +46,24 @@
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 1</Button>
 			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
 			{#if data.user}
-				<Button class="btn-ghost" faIcon={faUser} link="/">
+				<Button class="btn-ghost" faIcon={faUser} link="/perfil">
 					Bienvenido, {data.user.name}
 					{data.user.surname}
 				</Button>
+				<form
+					action="/logout"
+					method="POST"
+					use:enhance={async () => {
+						return async ({ result }) => {
+							await applyAction(result);
+						};
+					}}
+				>
+					<button type="submit" class="btn btn-ghost">
+						<Fa icon={faUser} />
+						Cerrar Sesión
+					</button>
+				</form>
 			{:else}
 				<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
 			{/if}
