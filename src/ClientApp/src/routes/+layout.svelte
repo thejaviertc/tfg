@@ -1,16 +1,26 @@
 <script lang="ts">
 	import "../app.scss";
 
-	import Button from "$components/Button.svelte";
-
 	import { applyAction, enhance } from "$app/forms";
-	import { faBars, faTriangleExclamation, faUser } from "@fortawesome/free-solid-svg-icons";
+	import {
+		faAddressCard,
+		faBars,
+		faTriangleExclamation,
+		faUser,
+	} from "@fortawesome/free-solid-svg-icons";
 	import { onMount } from "svelte";
 	import Fa from "svelte-fa";
 	import type { PageData } from "./$types";
 
+	import Button from "$components/Button.svelte";
+
+	export let data: PageData;
+
 	let navbarColor: string = "accent";
 
+	/**
+	 * Controlls the navbar color depending on the scroll
+	 */
 	onMount(() => {
 		window.onscroll = () => {
 			navbarColor =
@@ -19,11 +29,9 @@
 					: "accent";
 		};
 	});
-
-	export let data: PageData;
 </script>
 
-<nav class="navbar bg-{navbarColor} fixed">
+<nav class="navbar bg-{navbarColor} top-0 z-50 fixed">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<button tabindex="-1" class="btn btn-ghost lg:hidden pr-0"><Fa icon={faBars} /></button>
@@ -43,10 +51,8 @@
 	</div>
 	<div class="navbar-end hidden lg:flex">
 		<ul class="menu menu-horizontal px-1">
-			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 1</Button>
-			<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
 			{#if data.user}
-				<Button class="btn-ghost" faIcon={faUser} link="/perfil">
+				<Button class="btn-ghost" faIcon={faAddressCard} link="/perfil">
 					Bienvenido, {data.user.name}
 					{data.user.surname}
 				</Button>
@@ -65,6 +71,9 @@
 					</button>
 				</form>
 			{:else}
+				<Button class="btn-ghost" faIcon={faAddressCard} link="/registro">
+					Crear Cuenta
+				</Button>
 				<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
 			{/if}
 		</ul>
