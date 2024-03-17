@@ -4,11 +4,6 @@
 	import { faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<svelte:head>
-	<!-- TODO: Change -->
-	<title>TFG Temporal Name</title>
-</svelte:head>
-
 <div class="min-h-screen flex justify-center items-center">
 	<div class="min-h-screen flex flex-col justify-center items-center max-w-7xl">
 		<h1>TFG Temporal Name</h1>

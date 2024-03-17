@@ -9,6 +9,11 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<!-- TODO: Change -->
+	<title>TFG Temporal Name</title>
+</svelte:head>
+
 <Navbar user={data.user} />
 <slot />
 <Footer />
