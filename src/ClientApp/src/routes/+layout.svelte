@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "../app.scss";
 
-	import { applyAction, enhance } from "$app/forms";
 	import {
 		faAddressCard,
 		faBars,
@@ -31,7 +30,7 @@
 	});
 </script>
 
-<nav class="navbar bg-{navbarColor} top-0 z-50 fixed">
+<nav class="navbar bg-{navbarColor} top-0 z-50 sticky">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<button tabindex="-1" class="btn btn-ghost lg:hidden pr-0"><Fa icon={faBars} /></button>
@@ -56,15 +55,7 @@
 					Bienvenido, {data.user.name}
 					{data.user.surname}
 				</Button>
-				<form
-					action="/logout"
-					method="POST"
-					use:enhance={async () => {
-						return async ({ result }) => {
-							await applyAction(result);
-						};
-					}}
-				>
+				<form action="/logout" method="POST">
 					<button type="submit" class="btn btn-ghost">
 						<Fa icon={faUser} />
 						Cerrar Sesión
