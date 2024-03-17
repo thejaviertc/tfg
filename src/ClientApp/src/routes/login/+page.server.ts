@@ -28,6 +28,6 @@ export const actions: Actions = {
 			maxAge: 60 * 120,
 		});
 
-		throw redirect(303, "/");
+		throw redirect(303, "/perfil");
 	},
 };

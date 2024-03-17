@@ -1,0 +1,27 @@
+<script lang="ts">
+	import { type IconDefinition } from "@fortawesome/free-brands-svg-icons";
+	import Fa from "svelte-fa";
+
+	export let id: string;
+	export let label: string;
+	export let type: string;
+	export let placeholder: string;
+	export let faIcon: IconDefinition;
+	export let minlength: number | undefined = undefined;
+</script>
+
+<div class="form-control">
+	<label for={id} class="label">{label}:</label>
+	<div class="label">
+		<Fa icon={faIcon} class="absolute pl-5" />
+		<input
+			{id}
+			name={id}
+			{type}
+			{placeholder}
+			{minlength}
+			class="input input-bordered input-accent pl-12"
+			required
+		/>
+	</div>
+</div>
