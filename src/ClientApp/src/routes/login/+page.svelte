@@ -1,7 +1,8 @@
 <script lang="ts">
 	import InputForm from "$components/InputForm.svelte";
+	import Notification from "$components/Notification.svelte";
 
-	import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+	import { faEnvelope, faExclamation, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
 
@@ -12,9 +13,9 @@
 	<div class="bg-secondary p-6 rounded-xl">
 		<h3 class="text-black">Iniciar Sesión:</h3>
 		{#if form?.message}
-			<div role="alert" class="alert alert-error mt-5">
+			<Notification type="error" faIcon={faExclamation}>
 				{form.message}
-			</div>
+			</Notification>
 		{/if}
 		<form method="POST" action="?/login">
 			<InputForm
