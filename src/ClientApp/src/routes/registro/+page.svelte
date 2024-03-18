@@ -54,7 +54,6 @@
 				id="password"
 				label="Contraseña"
 				type="password"
-				placeholder="Contraseña"
 				faIcon={faKey}
 				minlength={6}
 			/>

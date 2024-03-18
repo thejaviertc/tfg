@@ -5,9 +5,10 @@
 	export let id: string;
 	export let label: string;
 	export let type: string;
-	export let placeholder: string;
+	export let placeholder: string | undefined = undefined;
 	export let faIcon: IconDefinition;
 	export let minlength: number | undefined = undefined;
+	export let value: string | undefined = undefined;
 </script>
 
 <div class="form-control">
@@ -20,6 +21,7 @@
 			{type}
 			{placeholder}
 			{minlength}
+			{value}
 			class="input input-bordered input-accent pl-12"
 			required
 		/>
