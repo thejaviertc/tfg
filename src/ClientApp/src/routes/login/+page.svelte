@@ -25,7 +25,13 @@
 				placeholder="Email"
 				faIcon={faEnvelope}
 			/>
-			<InputForm id="password" label="Contraseña" type="password" faIcon={faKey} />
+			<InputForm
+				id="password"
+				label="Contraseña"
+				type="password"
+				placeholder="Contraseña"
+				faIcon={faKey}
+			/>
 			<div class="mt-6 mx-auto flex flex-col">
 				<button type="submit" class="btn btn-primary">
 					<Fa class="mr-2" icon={faUser} />

@@ -8,7 +8,7 @@
 	export let placeholder: string | undefined = undefined;
 	export let faIcon: IconDefinition;
 	export let minlength: number | undefined = undefined;
-	export let value: string | undefined = undefined;
+	export let value: string | null = null;
 </script>
 
 <div class="form-control">
