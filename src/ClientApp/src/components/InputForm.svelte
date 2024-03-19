@@ -9,6 +9,7 @@
 	export let faIcon: IconDefinition;
 	export let minlength: number | undefined = undefined;
 	export let value: string | null = null;
+	export let isDisabled: boolean = false;
 </script>
 
 <div class="form-control">
@@ -24,6 +25,7 @@
 			{value}
 			class="input input-bordered input-accent pl-12"
 			required
+			disabled={isDisabled}
 		/>
 	</div>
 </div>
