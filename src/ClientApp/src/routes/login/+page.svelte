@@ -9,7 +9,7 @@
 	export let form: ActionData;
 </script>
 
-<section class="h-screen hero">
+<section class="min-h-screen hero">
 	<div class="bg-secondary p-6 rounded-xl">
 		<h3 class="text-black">Iniciar Sesión:</h3>
 		{#if form?.message}

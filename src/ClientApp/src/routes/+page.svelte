@@ -4,7 +4,7 @@
 	import { faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
 </script>
 
-<section class="h-screen flex flex-col justify-center items-center text-center px-72">
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-72">
 	<h1>TFG Temporal Name</h1>
 	<h5 class="my-10">
 		Mi idea consiste en desarrollar una aplicación web destinada a facilitar la búsqueda de
