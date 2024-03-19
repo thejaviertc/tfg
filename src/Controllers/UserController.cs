@@ -49,4 +49,33 @@ public class UserController : ControllerBase
 			}
 		);
 	}
+
+	/// <summary>
+	/// Updates the current User with the provided Name and Surname
+	/// </summary>
+	/// <param name="updateRequest">The update request with the new Name and Surname</param>
+	/// <returns></returns>
+	[HttpPut("me")]
+	[Authorize]
+	public ActionResult UpdateUser([FromForm] UpdateRequest updateRequest)
+	{
+		int? userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		User? user = _dbContext.Users.Find(userId);
+
+		if (user is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		user.Name = updateRequest.Name;
+		user.Surname = updateRequest.Surname;
+
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }
