@@ -96,4 +96,16 @@ public class AuthService : IAuthService
 
 		return new JwtSecurityTokenHandler().WriteToken(securityToken);
 	}
+
+	/// <summary>
+	/// Obtains the UserId inside the JWT
+	/// </summary>
+	/// <param name="user">Claims of the User</param>
+	/// <returns></returns>
+	public int? GetUserIdFromJwt(ClaimsPrincipal user)
+	{
+		Claim? subClaim = user.FindFirst(JwtRegisteredClaimNames.Sub);
+
+		return subClaim is not null ? int.Parse(subClaim.Value) : null;
+	}
 }
