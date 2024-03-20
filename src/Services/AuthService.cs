@@ -83,13 +83,28 @@ public class AuthService : IAuthService
 	}
 
 	/// <summary>
+	/// Returns the User from the Database if the authentication is valid
+	/// </summary>
+	/// <param name="userClaims">The claims of the JWT</param>
+	/// <returns></returns>
+	public User? GetAuthenticatedUser(ClaimsPrincipal userClaims)
+	{
+		int? userId = GetUserIdFromJwt(userClaims);
+
+		if (userId is null)
+			return null;
+
+		return _dbContext.Users.Find(userId);
+	}
+
+	/// <summary>
 	/// Obtains the UserId inside the JWT
 	/// </summary>
 	/// <param name="user">Claims of the User</param>
 	/// <returns></returns>
-	public int? GetUserIdFromJwt(ClaimsPrincipal user)
+	private int? GetUserIdFromJwt(ClaimsPrincipal userClaims)
 	{
-		Claim? subClaim = user.FindFirst(JwtRegisteredClaimNames.Sub);
+		Claim? subClaim = userClaims.FindFirst(JwtRegisteredClaimNames.Sub);
 
 		return subClaim is not null ? int.Parse(subClaim.Value) : null;
 	}

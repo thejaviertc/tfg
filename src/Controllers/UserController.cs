@@ -30,15 +30,10 @@ public class UserController : ControllerBase
 	[Authorize]
 	public ActionResult GetCurrentUser()
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
-
-		if (userId is null)
-			return BadRequest();
-
-		User? user = _dbContext.Users.Find(userId);
+		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
-			return BadRequest();
+			return Unauthorized();
 
 		return Ok(
 			new
@@ -59,17 +54,12 @@ public class UserController : ControllerBase
 	[Authorize]
 	public ActionResult UpdateCurrentUser([FromForm] UserRequest updateRequest)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
-
-		if (userId is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
-
-		User? user = _dbContext.Users.Find(userId);
+		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+			return Unauthorized(
+				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
+			);
 
 		user.Name = updateRequest.Name;
 		user.Surname = updateRequest.Surname;
@@ -88,17 +78,12 @@ public class UserController : ControllerBase
 	[Authorize]
 	public ActionResult UpdateCurrentUserPassword([FromForm] UserRequest updatePasswordRequest)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
-
-		if (userId is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
-
-		User? user = _dbContext.Users.Find(userId);
+		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+			return Unauthorized(
+				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
+			);
 
 		if (!_authService.IsValidPassword(user, updatePasswordRequest.Password))
 			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
@@ -122,17 +107,12 @@ public class UserController : ControllerBase
 	[Authorize]
 	public ActionResult DeleteCurrentUser([FromForm] UserRequest deleteUserRequest)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
-
-		if (userId is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
-
-		User? user = _dbContext.Users.Find(userId);
+		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
-			// TODO: Check
-			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+			return Unauthorized(
+				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
+			);
 
 		if (!_authService.IsValidPassword(user, deleteUserRequest.Password))
 			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
