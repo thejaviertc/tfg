@@ -36,6 +36,7 @@
 				tabindex="-1"
 				class="menu menu-sm dropdown-content mt-4 ml-1 p-2 shadow bg-secondary rounded-box w-64"
 			>
+				<!-- TODO: Update it to use the same as PC version -->
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace</Button>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 2</Button>
 				<Button class="btn-ghost" faIcon={faTriangleExclamation} link="/">Enlace 3</Button>

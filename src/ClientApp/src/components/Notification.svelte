@@ -11,6 +11,9 @@
 
 	const currentComponent = get_current_component();
 
+	/**
+	 * Destroys the component after 5 seconds
+	 */
 	onMount(() => {
 		const timeout = setTimeout(() => {
 			currentComponent.$destroy();
