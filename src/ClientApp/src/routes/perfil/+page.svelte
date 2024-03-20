@@ -67,7 +67,6 @@
 				id="password"
 				label="Contraseña Actual"
 				type="password"
-				placeholder="Contraseña Actual"
 				faIcon={faKey}
 				minlength={6}
 			/>
@@ -75,7 +74,6 @@
 				id="newPassword"
 				label="Nueva Contraseña"
 				type="password"
-				placeholder="Nueva Contraseña"
 				faIcon={faKey}
 				minlength={6}
 			/>

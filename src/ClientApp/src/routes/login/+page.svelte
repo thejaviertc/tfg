@@ -18,20 +18,8 @@
 			</Notification>
 		{/if}
 		<form method="POST" action="?/login">
-			<InputForm
-				id="email"
-				label="Email"
-				type="email"
-				placeholder="Email"
-				faIcon={faEnvelope}
-			/>
-			<InputForm
-				id="password"
-				label="Contraseña"
-				type="password"
-				placeholder="Contraseña"
-				faIcon={faKey}
-			/>
+			<InputForm id="email" label="Email" type="email" faIcon={faEnvelope} />
+			<InputForm id="password" label="Contraseña" type="password" faIcon={faKey} />
 			<div class="mt-6 mx-auto flex flex-col">
 				<button type="submit" class="btn btn-primary">
 					<Fa class="mr-2" icon={faUser} />

@@ -29,32 +29,13 @@
 			</Notification>
 		{/if}
 		<form method="POST" action="?/register">
-			<InputForm
-				id="name"
-				label="Nombre"
-				type="text"
-				placeholder="Nombre"
-				faIcon={faAddressCard}
-			/>
-			<InputForm
-				id="surname"
-				label="Apellidos"
-				type="text"
-				placeholder="Apellidos"
-				faIcon={faAddressCard}
-			/>
-			<InputForm
-				id="email"
-				label="Email"
-				type="email"
-				placeholder="Email"
-				faIcon={faEnvelope}
-			/>
+			<InputForm id="name" label="Nombre" type="text" faIcon={faAddressCard} />
+			<InputForm id="surname" label="Apellidos" type="text" faIcon={faAddressCard} />
+			<InputForm id="email" label="Email" type="email" faIcon={faEnvelope} />
 			<InputForm
 				id="password"
 				label="Contraseña"
 				type="password"
-				placeholder="Contraseña"
 				faIcon={faKey}
 				minlength={6}
 			/>
