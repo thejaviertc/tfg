@@ -55,7 +55,7 @@ public class AuthService : IAuthService
 	/// </summary>
 	/// <param name="loginRequest">User data from the form in the Frontend</param>
 	/// <returns></returns>
-	public User? GetAuthenticatedUser(LoginRequest loginRequest)
+	public User? GetAuthenticatedUser(UserRequest loginRequest)
 	{
 		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
 

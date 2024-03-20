@@ -55,7 +55,7 @@ public class AuthController : ControllerBase
 	/// <param name="loginRequest">Login Request from the form in the Frontend</param>
 	/// <returns></returns>
 	[HttpPost("login")]
-	public ActionResult Login([FromForm] LoginRequest loginRequest)
+	public ActionResult Login([FromForm] UserRequest loginRequest)
 	{
 		User? user = _authService.GetAuthenticatedUser(loginRequest);
 

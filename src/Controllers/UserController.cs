@@ -57,7 +57,7 @@ public class UserController : ControllerBase
 	/// <returns></returns>
 	[HttpPut("me")]
 	[Authorize]
-	public ActionResult UpdateCurrentUser([FromForm] UpdateRequest updateRequest)
+	public ActionResult UpdateCurrentUser([FromForm] UserRequest updateRequest)
 	{
 		int? userId = _authService.GetUserIdFromJwt(User);
 
@@ -86,7 +86,7 @@ public class UserController : ControllerBase
 	/// <returns></returns>
 	[HttpPut("me/password")]
 	[Authorize]
-	public ActionResult UpdateCurrentUserPassword([FromForm] UpdatePasswordRequest updatePasswordRequest)
+	public ActionResult UpdateCurrentUserPassword([FromForm] UserRequest updatePasswordRequest)
 	{
 		int? userId = _authService.GetUserIdFromJwt(User);
 
@@ -120,7 +120,7 @@ public class UserController : ControllerBase
 	/// <returns></returns>
 	[HttpDelete("me")]
 	[Authorize]
-	public ActionResult DeleteCurrentUser([FromForm] DeleteUserRequest deleteUserRequest)
+	public ActionResult DeleteCurrentUser([FromForm] UserRequest deleteUserRequest)
 	{
 		int? userId = _authService.GetUserIdFromJwt(User);
 
