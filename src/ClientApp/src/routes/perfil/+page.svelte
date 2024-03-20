@@ -85,5 +85,21 @@
 				</button>
 			</div>
 		</form>
+		<div class="divider divider-accent mt-10">Peligro</div>
+		<form method="POST" action="?/delete">
+			<InputForm
+				id="password"
+				label="Contraseña Actual"
+				type="password"
+				faIcon={faKey}
+				minlength={6}
+			/>
+			<div class="mt-6 mx-auto flex flex-col">
+				<button type="submit" class="btn btn-error">
+					<Fa class="mr-2" icon={faKey} />
+					Eliminar Cuenta
+				</button>
+			</div>
+		</form>
 	</div>
 </section>

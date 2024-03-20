@@ -112,4 +112,34 @@ public class UserController : ControllerBase
 
 		return Ok();
 	}
+
+	/// <summary>
+	/// Deletes the current user from the system
+	/// </summary>
+	/// <param name="deleteUserRequest">The delete user request with the current Password</param>
+	/// <returns></returns>
+	[HttpDelete("me")]
+	[Authorize]
+	public ActionResult DeleteCurrentUser([FromForm] DeleteUserRequest deleteUserRequest)
+	{
+		int? userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		User? user = _dbContext.Users.Find(userId);
+
+		if (user is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		if (!_authService.IsValidPassword(user, deleteUserRequest.Password))
+			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
+
+		_dbContext.Users.Remove(user);
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }
