@@ -45,9 +45,9 @@ public class AuthService : IAuthService
 	/// </summary>
 	/// <param name="user"></param>
 	/// <returns></returns>
-	public string GenerateHashedPassword(User user)
+	public string GenerateHashedPassword(User user, string password)
 	{
-		return _passwordHasher.HashPassword(user, user.Password);
+		return _passwordHasher.HashPassword(user, password);
 	}
 
 	/// <summary>
@@ -71,7 +71,7 @@ public class AuthService : IAuthService
 	/// <param name="user">The User who tries to login</param>
 	/// <param name="password">The password that is going to be checked</param>
 	/// <returns></returns>
-	private bool IsValidPassword(User user, string password)
+	public bool IsValidPassword(User user, string password)
 	{
 		return _passwordHasher.VerifyHashedPassword(user, user.Password, password)
 			== PasswordVerificationResult.Success;

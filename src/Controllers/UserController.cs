@@ -57,7 +57,7 @@ public class UserController : ControllerBase
 	/// <returns></returns>
 	[HttpPut("me")]
 	[Authorize]
-	public ActionResult UpdateUser([FromForm] UpdateRequest updateRequest)
+	public ActionResult UpdateCurrentUser([FromForm] UpdateRequest updateRequest)
 	{
 		int? userId = _authService.GetUserIdFromJwt(User);
 
@@ -73,6 +73,40 @@ public class UserController : ControllerBase
 
 		user.Name = updateRequest.Name;
 		user.Surname = updateRequest.Surname;
+
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
+
+	/// <summary>
+	/// Updates the current User with the provided new password
+	/// </summary>
+	/// <param name="updatePasswordRequest">The update password request with the current Password and NewPassword</param>
+	/// <returns></returns>
+	[HttpPut("me/password")]
+	[Authorize]
+	public ActionResult UpdateCurrentUserPassword([FromForm] UpdatePasswordRequest updatePasswordRequest)
+	{
+		int? userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		User? user = _dbContext.Users.Find(userId);
+
+		if (user is null)
+			// TODO: Check
+			return BadRequest(new { Message = "El SessionId es inválido, por favor inicie sesión de nuevo" });
+
+		if (!_authService.IsValidPassword(user, updatePasswordRequest.Password))
+			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
+
+		if (updatePasswordRequest.NewPassword.Length < 6)
+			return BadRequest(new { Message = "La nueva contraseña tiene que tener un mínimo de 6 carácteres" });
+
+		user.Password = _authService.GenerateHashedPassword(user, updatePasswordRequest.NewPassword);
 
 		_dbContext.SaveChanges();
 

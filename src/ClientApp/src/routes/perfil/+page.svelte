@@ -2,7 +2,13 @@
 	import InputForm from "$components/InputForm.svelte";
 	import Notification from "$components/Notification.svelte";
 
-	import { faAddressCard, faEnvelope, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+	import {
+		faAddressCard,
+		faEnvelope,
+		faExclamation,
+		faKey,
+		faThumbsUp,
+	} from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { PageData } from "../$types";
 	import type { ActionData } from "./$types";
@@ -17,7 +23,12 @@
 		<div class="divider divider-accent mt-6">Información Básica</div>
 		{#if form?.success}
 			<Notification type="success" faIcon={faThumbsUp}>
-				Te has registrado correctamente!
+				La información ha sido cambiada correctamente
+			</Notification>
+		{/if}
+		{#if form?.message}
+			<Notification type="error" faIcon={faExclamation}>
+				{form.message}
 			</Notification>
 		{/if}
 		<form method="POST" action="?/update-info">
@@ -47,6 +58,31 @@
 				<button type="submit" class="btn btn-primary">
 					<Fa class="mr-2" icon={faAddressCard} />
 					Actualizar Información
+				</button>
+			</div>
+		</form>
+		<div class="divider divider-accent mt-10">Cambiar Contraseña</div>
+		<form method="POST" action="?/update-password">
+			<InputForm
+				id="password"
+				label="Contraseña Actual"
+				type="password"
+				placeholder="Contraseña Actual"
+				faIcon={faKey}
+				minlength={6}
+			/>
+			<InputForm
+				id="newPassword"
+				label="Nueva Contraseña"
+				type="password"
+				placeholder="Nueva Contraseña"
+				faIcon={faKey}
+				minlength={6}
+			/>
+			<div class="mt-6 mx-auto flex flex-col">
+				<button type="submit" class="btn btn-primary">
+					<Fa class="mr-2" icon={faKey} />
+					Actualizar Contraseña
 				</button>
 			</div>
 		</form>

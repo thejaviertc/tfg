@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
 		if (user.Password.Length < 6)
 			return BadRequest(new { Message = "La contraseña tiene que tener un mínimo de 6 carácteres" });
 
-		user.Password = _authService.GenerateHashedPassword(user);
+		user.Password = _authService.GenerateHashedPassword(user, user.Password);
 
 		_dbContext.Users.Add(user);
 		_dbContext.SaveChanges();
