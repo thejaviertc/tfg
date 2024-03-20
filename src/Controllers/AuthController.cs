@@ -57,9 +57,9 @@ public class AuthController : ControllerBase
 	[HttpPost("login")]
 	public ActionResult Login([FromForm] UserRequest loginRequest)
 	{
-		User? user = _authService.GetAuthenticatedUser(loginRequest);
+		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
 
-		if (user is null)
+		if (user is null || !_authService.IsValidPassword(user, loginRequest.Password))
 			return BadRequest(new { Message = "El Email o la Contraseña es incorrecto" });
 
 		return Ok(new { sessionId = _authService.GenerateJwt(user) });

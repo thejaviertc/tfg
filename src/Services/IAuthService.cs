@@ -9,8 +9,6 @@ public interface IAuthService
 
 	public string GenerateHashedPassword(User user, string password);
 
-	public User? GetAuthenticatedUser(UserRequest loginRequest);
-
 	public bool IsValidPassword(User user, string password);
 
 	public string GenerateJwt(User user);

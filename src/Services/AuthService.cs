@@ -51,21 +51,6 @@ public class AuthService : IAuthService
 	}
 
 	/// <summary>
-	/// Returns the User from the Database if the authentication is valid
-	/// </summary>
-	/// <param name="loginRequest">User data from the form in the Frontend</param>
-	/// <returns></returns>
-	public User? GetAuthenticatedUser(UserRequest loginRequest)
-	{
-		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
-
-		if (user is null || !IsValidPassword(user, loginRequest.Password))
-			return null;
-
-		return user;
-	}
-
-	/// <summary>
 	/// Checks if the password provided is the password of the User
 	/// </summary>
 	/// <param name="user">The User who tries to login</param>
