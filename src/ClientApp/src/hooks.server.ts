@@ -12,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return resolve(event);
 	}
 
-	const response = await fetch(`${API_URL}/auth/me`, {
+	const response = await fetch(`${API_URL}/user/me`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${sessionId}`,
