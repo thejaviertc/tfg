@@ -57,6 +57,9 @@ public class AuthController : ControllerBase
 	[HttpPost("login")]
 	public ActionResult Login([FromForm] UserRequest loginRequest)
 	{
+		if (loginRequest.Password is null)
+			return BadRequest();
+
 		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
 
 		if (user is null || !_authService.IsValidPassword(user, loginRequest.Password))

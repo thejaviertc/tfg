@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TfgTemporalName.Models;
 using TfgTemporalName.Services;
 
@@ -61,6 +62,9 @@ public class UserController : ControllerBase
 				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
 			);
 
+		if (string.IsNullOrEmpty(updateRequest.Name) || string.IsNullOrEmpty(updateRequest.Surname))
+			return BadRequest();
+
 		user.Name = updateRequest.Name;
 		user.Surname = updateRequest.Surname;
 
@@ -84,6 +88,12 @@ public class UserController : ControllerBase
 			return Unauthorized(
 				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
 			);
+
+		if (
+			string.IsNullOrEmpty(updatePasswordRequest.Password)
+			|| string.IsNullOrEmpty(updatePasswordRequest.NewPassword)
+		)
+			return BadRequest();
 
 		if (!_authService.IsValidPassword(user, updatePasswordRequest.Password))
 			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
@@ -113,6 +123,9 @@ public class UserController : ControllerBase
 			return Unauthorized(
 				new { Message = "No se ha podido encontrar el usuario en el servidor. Intente de nuevo" }
 			);
+
+		if (string.IsNullOrEmpty(deleteUserRequest.Password))
+			return BadRequest();
 
 		if (!_authService.IsValidPassword(user, deleteUserRequest.Password))
 			return BadRequest(new { Message = "La contraseña actual introducida es incorrecta" });
