@@ -17,20 +17,21 @@
 	export let form: ActionData;
 </script>
 
+{#if form?.success}
+	<Notification type="success" faIcon={faThumbsUp}>
+		La información ha sido cambiada correctamente
+	</Notification>
+{/if}
+{#if form?.message}
+	<Notification type="error" faIcon={faExclamation}>
+		{form.message}
+	</Notification>
+{/if}
+
 <section class="min-h-screen hero">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Perfil de {data.user.name} {data.user.surname}:</h3>
 		<div class="divider divider-accent mt-6">Información Básica</div>
-		{#if form?.success}
-			<Notification type="success" faIcon={faThumbsUp}>
-				La información ha sido cambiada correctamente
-			</Notification>
-		{/if}
-		{#if form?.message}
-			<Notification type="error" faIcon={faExclamation}>
-				{form.message}
-			</Notification>
-		{/if}
 		<form method="POST" action="?/update-info">
 			<InputForm
 				id="name"

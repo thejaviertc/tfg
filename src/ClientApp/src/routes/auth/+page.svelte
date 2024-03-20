@@ -16,19 +16,18 @@
 	export let form: ActionData;
 </script>
 
+{#if form?.success}
+	<Notification type="success" faIcon={faThumbsUp}>Te has registrado correctamente!</Notification>
+{/if}
+{#if form?.message}
+	<Notification type="error" faIcon={faExclamation}>
+		{form.message}
+	</Notification>
+{/if}
+
 <section class="min-h-screen flex gap-8 justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Regístrate:</h3>
-		{#if form?.success}
-			<Notification type="success" faIcon={faThumbsUp}>
-				Te has registrado correctamente!
-			</Notification>
-		{/if}
-		{#if form?.message}
-			<Notification type="error" faIcon={faExclamation}>
-				{form.message}
-			</Notification>
-		{/if}
 		<form method="POST" action="?/register">
 			<InputForm id="name" label="Nombre" type="text" faIcon={faAddressCard} />
 			<InputForm id="surname" label="Apellidos" type="text" faIcon={faAddressCard} />
@@ -50,11 +49,6 @@
 	</div>
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Iniciar Sesión:</h3>
-		{#if form?.message}
-			<Notification type="error" faIcon={faExclamation}>
-				{form.message}
-			</Notification>
-		{/if}
 		<form method="POST" action="?/login">
 			<InputForm id="email" label="Email" type="email" faIcon={faEnvelope} />
 			<InputForm id="password" label="Contraseña" type="password" faIcon={faKey} />
