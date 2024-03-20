@@ -4,7 +4,7 @@ import { API_URL } from "$lib/constants";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) {
-		throw redirect(302, "/");
+		throw redirect(302, "/auth");
 	}
 };
 

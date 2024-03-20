@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
 
-	import { faAddressCard, faUser } from "@fortawesome/free-solid-svg-icons";
+	import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 </script>
 
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-72">
@@ -23,7 +23,6 @@
 		plagios/robos de ideas).
 	</h5>
 	<div>
-		<Button class="btn-accent" link="/registro" faIcon={faAddressCard}>Crear Cuenta</Button>
-		<Button class="btn-accent" link="/login" faIcon={faUser}>Iniciar Sesión</Button>
+		<Button class="btn-accent" link="/auth" faIcon={faAddressCard}>Empezar</Button>
 	</div>
 </section>

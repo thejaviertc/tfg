@@ -61,10 +61,8 @@
 					</button>
 				</form>
 			{:else}
-				<Button class="btn-ghost" faIcon={faAddressCard} link="/registro">
-					Crear Cuenta
-				</Button>
-				<Button class="btn-ghost" faIcon={faUser} link="/login">Iniciar Sesión</Button>
+				<Button class="btn-ghost" faIcon={faAddressCard} link="/auth">Crear Cuenta</Button>
+				<Button class="btn-ghost" faIcon={faUser} link="/auth">Iniciar Sesión</Button>
 			{/if}
 		</ul>
 	</div>
