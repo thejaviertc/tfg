@@ -22,7 +22,7 @@
 			placeholder={label}
 			{minlength}
 			{value}
-			class="input input-bordered input-accent pl-12"
+			class="input input-bordered input-accent pl-12 min-w-80 w-full"
 			required
 			disabled={isDisabled}
 		/>
