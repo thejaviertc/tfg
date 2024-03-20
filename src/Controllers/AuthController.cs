@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
 		User? user = _dbContext.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
 
 		if (user is null || !_authService.IsValidPassword(user, loginRequest.Password))
-			return BadRequest(new { Message = "El Email o la Contraseña es incorrecto" });
+			return Unauthorized(new { Message = "El Email o la Contraseña es incorrecto" });
 
 		return Ok(new { sessionId = _authService.GenerateJwt(user) });
 	}
