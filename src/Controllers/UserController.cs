@@ -23,7 +23,7 @@ public class UserController : ControllerBase
 	}
 
 	/// <summary>
-	/// Returns the Name, Surname and Email of the current User
+	/// Returns the Name, Surname, Email and Role of the current User
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet("me")]
@@ -40,7 +40,8 @@ public class UserController : ControllerBase
 			{
 				user.Name,
 				user.Surname,
-				user.Email
+				user.Email,
+				user.Role
 			}
 		);
 	}
