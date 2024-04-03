@@ -17,4 +17,14 @@ public class ApplicationDbContext : DbContext
 	{
 		optionsBuilder.UseMySQL(_configuration["MySQLConnectionString"]!).UseSnakeCaseNamingConvention();
 	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder
+			.Entity<User>()
+			.HasMany(u => u.Topics)
+			.WithOne(t => t.User)
+			.HasForeignKey(t => t.UserId)
+			.IsRequired();
+	}
 }

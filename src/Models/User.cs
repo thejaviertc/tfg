@@ -27,6 +27,8 @@ public partial class User
 	[DefaultValue(TUserRole.Alumno)]
 	public required TUserRole Role { get; set; }
 
+	public ICollection<Topic> Topics { get; } = new List<Topic>();
+
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();
 
