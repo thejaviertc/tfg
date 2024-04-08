@@ -1,7 +1,10 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
 
-	import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
+	import { faAddressCard, faBook } from "@fortawesome/free-solid-svg-icons";
+	import type { PageData } from "./$types";
+
+	export let data: PageData;
 </script>
 
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-72">
@@ -23,6 +26,10 @@
 		plagios/robos de ideas).
 	</h5>
 	<div>
-		<Button class="btn-accent" link="/auth" faIcon={faAddressCard}>Empezar</Button>
+		{#if data.user}
+			<Button class="btn-accent" link="/temas" faIcon={faBook}>Ver Temas</Button>
+		{:else}
+			<Button class="btn-accent" link="/auth" faIcon={faAddressCard}>Empezar</Button>
+		{/if}
 	</div>
 </section>
