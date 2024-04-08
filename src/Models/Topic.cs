@@ -20,6 +20,4 @@ public class Topic
 	public required DateTime CreatedAt { get; set; }
 
 	public int UserId { get; set; }
-
-	public User? User { get; set; }
 }
