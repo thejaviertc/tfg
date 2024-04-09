@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	"update-info": async ({ request, cookies }) => {
-		const response = await fetch(`${API_URL}/user/me`, {
+		const response = await fetch(`${API_URL}/users/me`, {
 			method: "PUT",
 			body: await request.formData(),
 			headers: {
@@ -27,7 +27,7 @@ export const actions: Actions = {
 		return { success: true };
 	},
 	"update-password": async ({ request, cookies }) => {
-		const response = await fetch(`${API_URL}/user/me/password`, {
+		const response = await fetch(`${API_URL}/users/me/password`, {
 			method: "PUT",
 			body: await request.formData(),
 			headers: {
@@ -44,7 +44,7 @@ export const actions: Actions = {
 		return { success: true };
 	},
 	delete: async ({ request, cookies }) => {
-		const response = await fetch(`${API_URL}/user/me`, {
+		const response = await fetch(`${API_URL}/users/me`, {
 			method: "DELETE",
 			body: await request.formData(),
 			headers: {

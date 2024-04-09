@@ -7,13 +7,13 @@ namespace TfgTemporalName.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
 	private readonly ApplicationDbContext _dbContext;
 
 	private readonly IAuthService _authService;
 
-	public UserController(ApplicationDbContext dbContext, IAuthService authService)
+	public UsersController(ApplicationDbContext dbContext, IAuthService authService)
 	{
 		_dbContext = dbContext;
 		_authService = authService;
