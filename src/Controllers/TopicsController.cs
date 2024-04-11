@@ -29,4 +29,15 @@ public class TopicsController : ControllerBase
 	{
 		return Ok(_dbContext.Topics);
 	}
+
+	[HttpGet("{id}")]
+	public ActionResult<Topic> GetTopic(int id)
+	{
+		Topic? topic = _dbContext.Topics.Find(id);
+
+		if (topic is null)
+			return NotFound();
+
+		return Ok(topic);
+	}
 }
