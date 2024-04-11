@@ -2,6 +2,7 @@
 	import Button from "$components/Button.svelte";
 
 	import type { IUser } from "$lib/IUser";
+	import UpmLogo from "$lib/assets/upm.png";
 	import {
 		faAddressCard,
 		faBars,
@@ -44,7 +45,7 @@
 			</ul>
 		</div>
 		<Button class="btn-ghost pl-2" link="/">
-			<img class="w-14" src="./upm.png" alt="Logo UPM" />
+			<img class="w-14" src={UpmLogo} alt="Logo UPM" />
 			TFG Temporal Name
 		</Button>
 	</div>
