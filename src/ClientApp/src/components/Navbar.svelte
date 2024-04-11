@@ -2,11 +2,14 @@
 	import Button from "$components/Button.svelte";
 
 	import type { IUser } from "$lib/IUser";
+	import TUserRole from "$lib/TUserRole";
 	import UpmLogo from "$lib/assets/upm.png";
 	import {
 		faAddressCard,
 		faBars,
 		faBook,
+		faGraduationCap,
+		faSchool,
 		faTriangleExclamation,
 		faUser,
 	} from "@fortawesome/free-solid-svg-icons";
@@ -56,6 +59,13 @@
 				<Button class="btn-ghost" faIcon={faAddressCard} link="/perfil">
 					Bienvenido, {user.name}
 					{user.surname}
+				</Button>
+				<Button
+					class="btn-ghost"
+					faIcon={user.role === TUserRole.ALUMNO ? faGraduationCap : faSchool}
+					link=""
+				>
+					{TUserRole.toText(user.role)}
 				</Button>
 				<form action="/logout" method="POST">
 					<button type="submit" class="btn btn-ghost">
