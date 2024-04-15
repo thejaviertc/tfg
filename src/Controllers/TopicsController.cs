@@ -31,6 +31,7 @@ public class TopicsController : ControllerBase
 	}
 
 	[HttpGet("{id}")]
+	[Authorize]
 	public ActionResult<Topic> GetTopic(int id)
 	{
 		Topic? topic = _dbContext.Topics.Find(id);
