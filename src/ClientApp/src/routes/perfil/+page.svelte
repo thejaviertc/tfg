@@ -1,9 +1,11 @@
 <script lang="ts">
+	import Button from "$components/Button.svelte";
 	import InputForm from "$components/InputForm.svelte";
 	import Notification from "$components/Notification.svelte";
 
 	import {
 		faAddressCard,
+		faBook,
 		faEnvelope,
 		faExclamation,
 		faKey,
@@ -28,7 +30,7 @@
 	</Notification>
 {/if}
 
-<section class="min-h-screen hero">
+<section class="min-h-screen flex gap-8 justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Perfil de {data.user.name} {data.user.surname}:</h3>
 		<div class="divider divider-accent mt-6">Información Básica</div>
@@ -101,5 +103,15 @@
 				</button>
 			</div>
 		</form>
+	</div>
+	<div class="bg-secondary p-6 my-10 rounded-xl">
+		<h3 class="text-black">Mis Temas:</h3>
+		<div class="flex flex-wrap gap-4 justify-center mt-4">
+			{#each data.topics as topic}
+				<Button class="btn-primary" faIcon={faBook} link="/temas/{topic.topicId}">
+					{topic.title}
+				</Button>
+			{/each}
+		</div>
 	</div>
 </section>

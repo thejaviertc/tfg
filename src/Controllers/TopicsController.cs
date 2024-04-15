@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TfgTemporalName.Models;
+using TfgTemporalName.Services;
 
 namespace TfgTemporalName.Controllers;
 
@@ -11,9 +11,12 @@ public class TopicsController : ControllerBase
 {
 	private readonly ApplicationDbContext _dbContext;
 
-	public TopicsController(ApplicationDbContext dbContext)
+	private readonly IAuthService _authService;
+
+	public TopicsController(ApplicationDbContext dbContext, IAuthService authService)
 	{
 		_dbContext = dbContext;
+		_authService = authService;
 
 		// TODO: Remove
 		_dbContext.Database.EnsureCreated();
@@ -40,5 +43,19 @@ public class TopicsController : ControllerBase
 			return NotFound();
 
 		return Ok(topic);
+	}
+
+	[HttpGet("me")]
+	[Authorize]
+	public ActionResult<Topic> GetMyTopics()
+	{
+		var userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			return BadRequest();
+
+		var topics = _dbContext.Topics.Where(t => t.UserId == userId);
+
+		return Ok(topics);
 	}
 }

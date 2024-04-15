@@ -102,7 +102,7 @@ public class AuthService : IAuthService
 	/// </summary>
 	/// <param name="user">Claims of the User</param>
 	/// <returns></returns>
-	private int? GetUserIdFromJwt(ClaimsPrincipal userClaims)
+	public int? GetUserIdFromJwt(ClaimsPrincipal userClaims)
 	{
 		Claim? subClaim = userClaims.FindFirst(JwtRegisteredClaimNames.Sub);
 

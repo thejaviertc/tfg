@@ -14,4 +14,6 @@ public interface IAuthService
 	public string GenerateJwt(User user);
 
 	public User? GetAuthenticatedUser(ClaimsPrincipal userClaims);
+
+	public int? GetUserIdFromJwt(ClaimsPrincipal userClaims);
 }
