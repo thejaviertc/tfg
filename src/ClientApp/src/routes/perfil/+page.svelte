@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from "$components/Button.svelte";
 	import InputForm from "$components/InputForm.svelte";
 	import Notification from "$components/Notification.svelte";
 
@@ -6,6 +7,7 @@
 		faAddressCard,
 		faEnvelope,
 		faExclamation,
+		faEye,
 		faKey,
 		faThumbsUp,
 		faTrash,
@@ -110,7 +112,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Nombre</th>
+							<th>Título</th>
 							<th>Descripcíon Corta</th>
 							<th>Acciones</th>
 						</tr>
@@ -120,8 +122,12 @@
 							<tr>
 								<th>{topic.title}</th>
 								<td>{topic.shortDescription}</td>
-								<td>
-									<!-- <Button class="btn-error" faIcon={faTrash} link="/"></Button> -->
+								<td class="flex gap-2">
+									<Button
+										class="btn-primary"
+										faIcon={faEye}
+										link="/temas/{topic.topicId}"
+									/>
 									<form method="POST" action="/temas/{topic.topicId}?/delete">
 										<button type="submit" class="btn btn-error">
 											<Fa icon={faTrash} />
