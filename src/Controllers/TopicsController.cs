@@ -58,4 +58,27 @@ public class TopicsController : ControllerBase
 
 		return Ok(topics);
 	}
+
+	[HttpDelete("{id}")]
+	[Authorize]
+	public ActionResult<Topic> DeleteTopic(int id)
+	{
+		var userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			return BadRequest();
+
+		Topic? topic = _dbContext.Topics.Find(id);
+
+		if (topic is null)
+			return NotFound();
+
+		if (topic.UserId != userId)
+			return Forbid();
+
+		_dbContext.Topics.Remove(topic);
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }

@@ -1,15 +1,14 @@
 <script lang="ts">
-	import Button from "$components/Button.svelte";
 	import InputForm from "$components/InputForm.svelte";
 	import Notification from "$components/Notification.svelte";
 
 	import {
 		faAddressCard,
-		faBook,
 		faEnvelope,
 		faExclamation,
 		faKey,
 		faThumbsUp,
+		faTrash,
 	} from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { PageData } from "../$types";
@@ -107,11 +106,33 @@
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Mis Temas:</h3>
 		<div class="flex flex-wrap gap-4 justify-center mt-4">
-			{#each data.topics as topic}
-				<Button class="btn-primary" faIcon={faBook} link="/temas/{topic.topicId}">
-					{topic.title}
-				</Button>
-			{/each}
+			<div class="overflow-x-auto">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripcíon Corta</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each data.topics as topic}
+							<tr>
+								<th>{topic.title}</th>
+								<td>{topic.shortDescription}</td>
+								<td>
+									<!-- <Button class="btn-error" faIcon={faTrash} link="/"></Button> -->
+									<form method="POST" action="/temas/{topic.topicId}?/delete">
+										<button type="submit" class="btn btn-error">
+											<Fa icon={faTrash} />
+										</button>
+									</form>
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </section>
