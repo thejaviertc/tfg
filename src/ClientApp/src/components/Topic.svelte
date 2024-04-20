@@ -6,10 +6,10 @@
 	export let data: ITopic;
 </script>
 
-<div class="card bg-base-100 shadow-xl">
+<div class="card bg-secondary shadow-xl">
 	<div class="card-body">
 		<h2 class="card-title text-black">{data.title}</h2>
-		<p class="text-black">{data.description}</p>
+		<p class="text-black">{data.shortDescription}</p>
 		<div class="card-actions justify-end">
 			<Button class="btn-primary" faIcon={faEye} link="/temas/{data.topicId}">
 				Ver Tema
