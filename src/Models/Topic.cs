@@ -10,7 +10,7 @@ public class Topic
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int TopicId { get; set; }
 
-	[Column(TypeName = "VARCHAR(100)")]
+	[Column(TypeName = "VARCHAR(50)")]
 	public required string Title { get; set; }
 
 	[Column(TypeName = "VARCHAR(255)")]

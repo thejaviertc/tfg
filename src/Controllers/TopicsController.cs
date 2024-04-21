@@ -33,6 +33,11 @@ public class TopicsController : ControllerBase
 		return Ok(_dbContext.Topics);
 	}
 
+	/// <summary>
+	/// Returns the specified Topic
+	/// </summary>
+	/// <param name="id">The ID of the Topic</param>
+	/// <returns></returns>
 	[HttpGet("{id}")]
 	[Authorize]
 	public ActionResult<Topic> GetTopic(int id)
@@ -45,6 +50,10 @@ public class TopicsController : ControllerBase
 		return Ok(topic);
 	}
 
+	/// <summary>
+	/// Returns all the topics related to the current user
+	/// </summary>
+	/// <returns></returns>
 	[HttpGet("me")]
 	[Authorize]
 	public ActionResult<Topic> GetMyTopics()
@@ -59,6 +68,11 @@ public class TopicsController : ControllerBase
 		return Ok(topics);
 	}
 
+	/// <summary>
+	/// Deletes the specified Topic
+	/// </summary>
+	/// <param name="id">The ID of the Topic</param>
+	/// <returns></returns>
 	[HttpDelete("{id}")]
 	[Authorize]
 	public ActionResult<Topic> DeleteTopic(int id)
