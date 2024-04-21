@@ -19,8 +19,10 @@
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black mb-2">{data.topic.title}</h3>
-		<Fa icon={faCalendar}></Fa>
-		{new Date(data.topic.createdAt).toLocaleDateString()}
+		<div class="badge badge-primary badge-md p-3 text-white">
+			<Fa icon={faCalendar} class="mr-2"></Fa>
+			{new Date(data.topic.createdAt).toLocaleDateString()}
+		</div>
 		<h5 class="text-black mt-4">{data.topic.shortDescription}</h5>
 		<h5 class="text-black mt-4 mb-2">{data.topic.description}</h5>
 	</div>
