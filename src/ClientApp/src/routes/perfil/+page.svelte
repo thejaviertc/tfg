@@ -88,7 +88,7 @@
 				</button>
 			</div>
 		</form>
-		<div class="divider divider-accent mt-10">Peligro</div>
+		<div class="divider divider-accent mt-10">Zona Peligrosa</div>
 		<form method="POST" action="?/delete">
 			<InputForm
 				id="password"
