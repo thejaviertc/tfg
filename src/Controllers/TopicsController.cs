@@ -56,9 +56,9 @@ public class TopicsController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("me")]
 	[Authorize]
-	public ActionResult<Topic> GetMyTopics()
+	public ActionResult<List<Topic>> GetMyTopics()
 	{
-		var userId = _authService.GetUserIdFromJwt(User);
+		int? userId = _authService.GetUserIdFromJwt(User);
 
 		if (userId is null)
 			return BadRequest();
@@ -69,15 +69,49 @@ public class TopicsController : ControllerBase
 	}
 
 	/// <summary>
+	/// Inserts a new valid Topic into the database
+	/// </summary>
+	/// <param name="topic">The Topic that is going to be added</param>
+	/// <returns></returns>
+	[HttpPost]
+	[Authorize]
+	public ActionResult AddTopic([FromForm] Topic topic)
+	{
+		int? userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			return BadRequest();
+
+		if (!ModelState.IsValid)
+			return BadRequest();
+
+		if (topic.Title.Length < 6 || topic.Title.Length > 50)
+			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+
+		if (topic.ShortDescription.Length < 20 || topic.ShortDescription.Length > 255)
+			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });
+
+		if (topic.Description.Length < 50)
+			return BadRequest(new { Message = "La descripción tiene que tener al menos 50 carácteres" });
+
+		topic.UserId = (int)userId;
+
+		_dbContext.Topics.Add(topic);
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
+
+	/// <summary>
 	/// Deletes the specified Topic
 	/// </summary>
 	/// <param name="id">The ID of the Topic</param>
 	/// <returns></returns>
 	[HttpDelete("{id}")]
 	[Authorize]
-	public ActionResult<Topic> DeleteTopic(int id)
+	public ActionResult DeleteTopic(int id)
 	{
-		var userId = _authService.GetUserIdFromJwt(User);
+		int? userId = _authService.GetUserIdFromJwt(User);
 
 		if (userId is null)
 			return BadRequest();
