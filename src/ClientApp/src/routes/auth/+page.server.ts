@@ -39,9 +39,9 @@ export const actions: Actions = {
 			path: "/",
 			httpOnly: true,
 			sameSite: "strict",
-			maxAge: 60 * 120,
+			maxAge: 60 * 24 * 7 * 4 * 12, // TODO: Change on release
 		});
 
-		throw redirect(303, "/perfil");
+		throw redirect(303, "/");
 	},
 };

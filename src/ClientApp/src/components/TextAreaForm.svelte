@@ -4,7 +4,6 @@
 
 	export let id: string;
 	export let label: string;
-	export let type: string;
 	export let faIcon: IconDefinition;
 	export let minlength: number | undefined = undefined;
 	export let maxlength: number | undefined = undefined;
@@ -14,19 +13,18 @@
 
 <div class="form-control">
 	<label for={id} class="label">{label}:</label>
-	<div class="label">
+	<div class="label w-72">
 		<Fa icon={faIcon} class="absolute pl-5" />
-		<input
+		<textarea
 			{id}
 			name={id}
-			{type}
 			placeholder={label}
 			{minlength}
 			{maxlength}
 			{value}
-			class="input input-bordered input-accent pl-12 min-w-80 w-full"
+			class="textarea textarea-bordered textarea-accent pl-12 min-w-80 w-full"
 			required
 			disabled={isDisabled}
-		/>
+		></textarea>
 	</div>
 </div>

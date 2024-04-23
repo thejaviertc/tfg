@@ -75,7 +75,7 @@ public class AuthService : IAuthService
 			_configuration["Jwt:Issuer"],
 			_configuration["Jwt:Audience"],
 			claims,
-			expires: DateTime.Now.AddMinutes(120),
+			expires: DateTime.Now.AddMinutes(60 * 24 * 7 * 4 * 12), // TODO: Change
 			signingCredentials: _signingCredentials
 		);
 
@@ -102,7 +102,7 @@ public class AuthService : IAuthService
 	/// </summary>
 	/// <param name="user">Claims of the User</param>
 	/// <returns></returns>
-	private int? GetUserIdFromJwt(ClaimsPrincipal userClaims)
+	public int? GetUserIdFromJwt(ClaimsPrincipal userClaims)
 	{
 		Claim? subClaim = userClaims.FindFirst(JwtRegisteredClaimNames.Sub);
 

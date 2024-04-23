@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
@@ -22,6 +23,11 @@ public partial class User
 
 	[Column(TypeName = "VARCHAR(255)")]
 	public required string Password { get; set; }
+
+	[DefaultValue(TUserRole.Alumno)]
+	public required TUserRole Role { get; set; }
+
+	public ICollection<Topic> Topics { get; } = new List<Topic>();
 
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();

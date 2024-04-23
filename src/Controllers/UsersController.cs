@@ -7,13 +7,13 @@ namespace TfgTemporalName.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
 	private readonly ApplicationDbContext _dbContext;
 
 	private readonly IAuthService _authService;
 
-	public UserController(ApplicationDbContext dbContext, IAuthService authService)
+	public UsersController(ApplicationDbContext dbContext, IAuthService authService)
 	{
 		_dbContext = dbContext;
 		_authService = authService;
@@ -23,7 +23,7 @@ public class UserController : ControllerBase
 	}
 
 	/// <summary>
-	/// Returns the Name, Surname and Email of the current User
+	/// Returns the Name, Surname, Email and Role of the current User
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet("me")]
@@ -40,7 +40,8 @@ public class UserController : ControllerBase
 			{
 				user.Name,
 				user.Surname,
-				user.Email
+				user.Email,
+				user.Role
 			}
 		);
 	}
