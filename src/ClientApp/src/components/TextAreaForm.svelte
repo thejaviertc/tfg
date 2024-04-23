@@ -7,6 +7,7 @@
 	export let faIcon: IconDefinition;
 	export let minlength: number | undefined = undefined;
 	export let maxlength: number | undefined = undefined;
+	export let value: string | null = null;
 	export let isDisabled: boolean = false;
 </script>
 
@@ -20,6 +21,7 @@
 			placeholder={label}
 			{minlength}
 			{maxlength}
+			{value}
 			class="textarea textarea-bordered textarea-accent pl-12 min-w-80 w-full"
 			required
 			disabled={isDisabled}

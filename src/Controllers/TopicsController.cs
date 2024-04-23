@@ -36,13 +36,13 @@ public class TopicsController : ControllerBase
 	/// <summary>
 	/// Returns the specified Topic
 	/// </summary>
-	/// <param name="id">The ID of the Topic</param>
+	/// <param name="topicId">The ID of the Topic</param>
 	/// <returns></returns>
-	[HttpGet("{id}")]
+	[HttpGet("{topicId}")]
 	[Authorize]
-	public ActionResult<Topic> GetTopic(int id)
+	public ActionResult<Topic> GetTopic(int topicId)
 	{
-		Topic? topic = _dbContext.Topics.Find(id);
+		Topic? topic = _dbContext.Topics.Find(topicId);
 
 		if (topic is null)
 			return NotFound();
@@ -97,6 +97,46 @@ public class TopicsController : ControllerBase
 		topic.UserId = (int)userId;
 
 		_dbContext.Topics.Add(topic);
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
+
+	/// <summary>
+	/// Updates the selected Topic with the provided data
+	/// </summary>
+	/// <param name="topicRequest"></param>
+	/// <returns></returns>
+	[HttpPut("{topicId}")]
+	[Authorize]
+	public ActionResult EditTopic(int topicId, [FromForm] TopicRequest topicRequest)
+	{
+		int? userId = _authService.GetUserIdFromJwt(User);
+
+		if (userId is null)
+			return BadRequest();
+
+		Topic? topic = _dbContext.Topics.Find(topicId);
+
+		if (topic is null)
+			return NotFound();
+
+		if (topic.UserId != userId)
+			return Forbid();
+
+		if (topic.Title.Length < 6 || topic.Title.Length > 50)
+			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+
+		if (topic.ShortDescription.Length < 20 || topic.ShortDescription.Length > 255)
+			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });
+
+		if (topic.Description.Length < 50)
+			return BadRequest(new { Message = "La descripción tiene que tener al menos 50 carácteres" });
+
+		topic.Title = topicRequest.Title;
+		topic.ShortDescription = topicRequest.ShortDescription;
+		topic.Description = topicRequest.Description;
+
 		_dbContext.SaveChanges();
 
 		return Ok();

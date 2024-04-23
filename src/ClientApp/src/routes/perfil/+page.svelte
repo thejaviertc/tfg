@@ -9,6 +9,7 @@
 		faExclamation,
 		faEye,
 		faKey,
+		faPencil,
 		faThumbsUp,
 		faTrash,
 	} from "@fortawesome/free-solid-svg-icons";
@@ -127,6 +128,11 @@
 										class="btn-primary"
 										faIcon={faEye}
 										link="/temas/{topic.topicId}"
+									/>
+									<Button
+										class="btn-warning"
+										faIcon={faPencil}
+										link="/temas/{topic.topicId}/editar"
 									/>
 									<form method="POST" action="/temas/{topic.topicId}?/delete">
 										<button type="submit" class="btn btn-error">
