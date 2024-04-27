@@ -1,12 +1,10 @@
-import { API_URL } from "$lib/constants";
-import { redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import AuthService from "$lib/AuthService";
 import type { ITopic } from "$lib/ITopic";
+import { API_URL } from "$lib/constants";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ cookies, locals }) => {
-	if (!locals.user) {
-		throw redirect(302, "/auth");
-	}
+	AuthService.redirectNotLoggedUsers(locals);
 
 	const response = await fetch(`${API_URL}/topics`, {
 		method: "GET",

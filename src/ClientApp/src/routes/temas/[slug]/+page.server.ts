@@ -2,11 +2,10 @@ import { API_URL } from "$lib/constants";
 import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import type { ITopic } from "$lib/ITopic";
+import AuthService from "$lib/AuthService";
 
 export const load: PageServerLoad = async ({ cookies, locals, params }) => {
-	if (!locals.user) {
-		throw redirect(302, "/auth");
-	}
+	AuthService.redirectNotLoggedUsers(locals);
 
 	const topicId = params.slug;
 

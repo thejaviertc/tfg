@@ -2,6 +2,9 @@ import { API_URL } from "$lib/constants";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 
+/**
+ * Prevents logged users to log again
+ */
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
 		throw redirect(302, "/");

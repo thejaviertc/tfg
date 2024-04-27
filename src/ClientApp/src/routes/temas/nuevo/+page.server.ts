@@ -1,12 +1,11 @@
-import TUserRole from "$lib/TUserRole";
+import AuthService from "$lib/AuthService";
 import { API_URL } from "$lib/constants";
 import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
-	if (!locals.user || locals.user.role !== TUserRole.PROFESOR) {
-		throw redirect(302, "/auth");
-	}
+	AuthService.redirectNotLoggedUsers(locals);
+	AuthService.redirectNotTeachers(locals);
 };
 
 export const actions: Actions = {

@@ -1,10 +1,9 @@
+import AuthService from "$lib/AuthService";
 import { redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
-	if (!locals.user) {
-		throw redirect(302, "/");
-	}
+	AuthService.redirectNotLoggedUsers(locals);
 };
 
 export const actions: Actions = {

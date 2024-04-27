@@ -2,7 +2,7 @@ import { API_URL } from "$lib/constants";
 import type { Handle } from "@sveltejs/kit";
 
 /**
- * Obtains the current User data on every route if is logged
+ * Checks if the User is logged and if is, obtains his data
  */
 export const handle: Handle = async ({ event, resolve }) => {
 	if (event.locals.user) {
