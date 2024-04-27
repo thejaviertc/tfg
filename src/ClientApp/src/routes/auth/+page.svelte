@@ -1,29 +1,15 @@
 <script lang="ts">
 	import InputForm from "$components/InputForm.svelte";
-	import Notification from "$components/Notification.svelte";
 
-	import {
-		faAddressCard,
-		faEnvelope,
-		faExclamation,
-		faKey,
-		faThumbsUp,
-		faUser,
-	} from "@fortawesome/free-solid-svg-icons";
+	import FormNotification from "$components/FormNotification.svelte";
+	import { faAddressCard, faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
 
 	export let form: ActionData;
 </script>
 
-{#if form?.success}
-	<Notification type="success" faIcon={faThumbsUp}>Te has registrado correctamente!</Notification>
-{/if}
-{#if form?.message}
-	<Notification type="error" faIcon={faExclamation}>
-		{form.message}
-	</Notification>
-{/if}
+<FormNotification {form} successMessage="Te has registrado correctamente!" />
 
 <section class="min-h-screen flex gap-8 justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">

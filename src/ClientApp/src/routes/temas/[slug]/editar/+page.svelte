@@ -1,15 +1,13 @@
 <script lang="ts">
 	import InputForm from "$components/InputForm.svelte";
-	import Notification from "$components/Notification.svelte";
 	import TextAreaForm from "$components/TextAreaForm.svelte";
 
+	import FormNotification from "$components/FormNotification.svelte";
 	import {
 		faAddressCard,
 		faBarsStaggered,
-		faExclamation,
 		faHeading,
 		faPencil,
-		faThumbsUp,
 	} from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
@@ -18,16 +16,7 @@
 	export let form: ActionData;
 </script>
 
-{#if form?.success}
-	<Notification type="success" faIcon={faThumbsUp}>
-		Has actualizado el tema correctamente!
-	</Notification>
-{/if}
-{#if form?.message}
-	<Notification type="error" faIcon={faExclamation}>
-		{form.message}
-	</Notification>
-{/if}
+<FormNotification {form} successMessage="Has actualizado el tema correctamente!" />
 
 <section class="min-h-screen flex justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">

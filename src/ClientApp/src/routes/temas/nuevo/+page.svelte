@@ -1,12 +1,11 @@
 <script lang="ts">
 	import InputForm from "$components/InputForm.svelte";
-	import Notification from "$components/Notification.svelte";
 	import TextAreaForm from "$components/TextAreaForm.svelte";
 
+	import FormNotification from "$components/FormNotification.svelte";
 	import {
 		faAddressCard,
 		faBarsStaggered,
-		faExclamation,
 		faHeading,
 		faPlus,
 	} from "@fortawesome/free-solid-svg-icons";
@@ -16,11 +15,7 @@
 	export let form: ActionData;
 </script>
 
-{#if form?.message}
-	<Notification type="error" faIcon={faExclamation}>
-		{form.message}
-	</Notification>
-{/if}
+<FormNotification {form} />
 
 <section class="min-h-screen flex justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">

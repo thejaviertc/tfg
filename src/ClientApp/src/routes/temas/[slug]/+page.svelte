@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Notification from "$components/Notification.svelte";
+	import FormNotification from "$components/FormNotification.svelte";
 
-	import { faCalendar, faExclamation } from "@fortawesome/free-solid-svg-icons";
+	import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
 
@@ -9,11 +9,7 @@
 	export let form: ActionData;
 </script>
 
-{#if form?.message}
-	<Notification type="error" faIcon={faExclamation}>
-		{form.message}
-	</Notification>
-{/if}
+<FormNotification {form} />
 
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">

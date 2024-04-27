@@ -1,8 +1,8 @@
+import AuthService from "$lib/AuthService";
 import type { ITopic } from "$lib/ITopic";
 import { API_URL } from "$lib/constants";
-import { fail, redirect, type Actions } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
-import AuthService from "$lib/AuthService";
 
 export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 	// TODO: Check if is the user who created it

@@ -1,16 +1,14 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
 	import InputForm from "$components/InputForm.svelte";
-	import Notification from "$components/Notification.svelte";
 
+	import FormNotification from "$components/FormNotification.svelte";
 	import {
 		faAddressCard,
 		faEnvelope,
-		faExclamation,
 		faEye,
 		faKey,
 		faPencil,
-		faThumbsUp,
 		faTrash,
 	} from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
@@ -20,16 +18,7 @@
 	export let form: ActionData;
 </script>
 
-{#if form?.success}
-	<Notification type="success" faIcon={faThumbsUp}>
-		La información ha sido cambiada correctamente
-	</Notification>
-{/if}
-{#if form?.message}
-	<Notification type="error" faIcon={faExclamation}>
-		{form.message}
-	</Notification>
-{/if}
+<FormNotification {form} successMessage="La información ha sido cambiada correctamente!" />
 
 <section class="min-h-screen flex gap-8 justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
