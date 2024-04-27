@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
-	import InputForm from "$components/InputForm.svelte";
-
+	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
+
 	import {
 		faAddressCard,
 		faEnvelope,
@@ -25,21 +25,21 @@
 		<h3 class="text-black">Perfil de {data.user.name} {data.user.surname}:</h3>
 		<div class="divider divider-accent mt-6">Información Básica</div>
 		<form method="POST" action="?/update-info">
-			<InputForm
+			<FormInput
 				id="name"
 				label="Nombre"
 				type="text"
 				faIcon={faAddressCard}
 				value={data.user.name}
 			/>
-			<InputForm
+			<FormInput
 				id="surname"
 				label="Apellidos"
 				type="text"
 				faIcon={faAddressCard}
 				value={data.user.surname}
 			/>
-			<InputForm
+			<FormInput
 				id="email"
 				label="Email"
 				type="email"
@@ -56,14 +56,14 @@
 		</form>
 		<div class="divider divider-accent mt-10">Cambiar Contraseña</div>
 		<form method="POST" action="?/update-password">
-			<InputForm
+			<FormInput
 				id="password"
 				label="Contraseña Actual"
 				type="password"
 				faIcon={faKey}
 				minlength={6}
 			/>
-			<InputForm
+			<FormInput
 				id="newPassword"
 				label="Nueva Contraseña"
 				type="password"
@@ -79,7 +79,7 @@
 		</form>
 		<div class="divider divider-accent mt-10">Zona Peligrosa</div>
 		<form method="POST" action="?/delete">
-			<InputForm
+			<FormInput
 				id="password"
 				label="Contraseña Actual"
 				type="password"

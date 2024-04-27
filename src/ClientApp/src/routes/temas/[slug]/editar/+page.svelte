@@ -1,8 +1,8 @@
 <script lang="ts">
-	import InputForm from "$components/InputForm.svelte";
-	import TextAreaForm from "$components/TextAreaForm.svelte";
-
+	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
+	import FormTextArea from "$components/FormTextArea.svelte";
+
 	import {
 		faAddressCard,
 		faBarsStaggered,
@@ -23,7 +23,7 @@
 		<h3 class="text-black">Editar Tema:</h3>
 		<form method="POST" action="?/update">
 			<input type="hidden" id="topicId" name="topicId" value={data.topic.topicId} />
-			<InputForm
+			<FormInput
 				id="title"
 				label="Título"
 				type="text"
@@ -32,7 +32,7 @@
 				minlength={6}
 				maxlength={50}
 			/>
-			<TextAreaForm
+			<FormTextArea
 				id="shortDescription"
 				label="Descripción Corta"
 				faIcon={faBarsStaggered}
@@ -40,7 +40,7 @@
 				minlength={20}
 				maxlength={255}
 			/>
-			<TextAreaForm
+			<FormTextArea
 				id="description"
 				label="Descripción"
 				faIcon={faAddressCard}

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import InputForm from "$components/InputForm.svelte";
-	import TextAreaForm from "$components/TextAreaForm.svelte";
-
+	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
+	import FormTextArea from "$components/FormTextArea.svelte";
+
 	import {
 		faAddressCard,
 		faBarsStaggered,
@@ -21,7 +21,7 @@
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black">Crear Tema:</h3>
 		<form method="POST" action="?/add">
-			<InputForm
+			<FormInput
 				id="title"
 				label="Título"
 				type="text"
@@ -29,14 +29,14 @@
 				minlength={6}
 				maxlength={50}
 			/>
-			<TextAreaForm
+			<FormTextArea
 				id="shortDescription"
 				label="Descripción Corta"
 				faIcon={faBarsStaggered}
 				minlength={20}
 				maxlength={255}
 			/>
-			<TextAreaForm
+			<FormTextArea
 				id="description"
 				label="Descripción"
 				faIcon={faAddressCard}
