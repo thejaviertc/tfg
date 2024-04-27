@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
+	import FormButton from "$components/FormButton.svelte";
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
@@ -47,12 +48,9 @@
 				value={data.user.email}
 				isDisabled={true}
 			/>
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-primary">
-					<Fa class="mr-2" icon={faAddressCard} />
-					Actualizar Información
-				</button>
-			</div>
+			<FormButton class="btn-primary" faIcon={faAddressCard}>
+				Actualizar Información
+			</FormButton>
 		</form>
 		<div class="divider divider-accent mt-10">Cambiar Contraseña</div>
 		<form method="POST" action="?/update-password">
@@ -70,12 +68,7 @@
 				faIcon={faKey}
 				minlength={6}
 			/>
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-primary">
-					<Fa class="mr-2" icon={faKey} />
-					Actualizar Contraseña
-				</button>
-			</div>
+			<FormButton class="btn-primary" faIcon={faKey}>Actualizar Contraseña</FormButton>
 		</form>
 		<div class="divider divider-accent mt-10">Zona Peligrosa</div>
 		<form method="POST" action="?/delete">
@@ -86,12 +79,7 @@
 				faIcon={faKey}
 				minlength={6}
 			/>
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-error">
-					<Fa class="mr-2" icon={faKey} />
-					Eliminar Cuenta
-				</button>
-			</div>
+			<FormButton class="btn-error" faIcon={faTrash}>Eliminar Cuenta</FormButton>
 		</form>
 	</div>
 	<div class="bg-secondary p-6 my-10 rounded-xl">

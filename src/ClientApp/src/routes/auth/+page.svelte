@@ -1,9 +1,9 @@
 <script lang="ts">
+	import FormButton from "$components/FormButton.svelte";
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
 	import { faAddressCard, faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
-	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
 
 	export let form: ActionData;
@@ -25,12 +25,7 @@
 				faIcon={faKey}
 				minlength={6}
 			/>
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-primary">
-					<Fa class="mr-2" icon={faAddressCard} />
-					Crear Cuenta
-				</button>
-			</div>
+			<FormButton class="btn-primary" faIcon={faAddressCard}>Crear Cuenta</FormButton>
 		</form>
 	</div>
 	<div class="bg-secondary p-6 my-10 rounded-xl">
@@ -38,12 +33,7 @@
 		<form method="POST" action="?/login">
 			<FormInput id="email" label="Email" type="email" faIcon={faEnvelope} />
 			<FormInput id="password" label="Contraseña" type="password" faIcon={faKey} />
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-primary">
-					<Fa class="mr-2" icon={faUser} />
-					Iniciar Sesión
-				</button>
-			</div>
+			<FormButton class="btn-primary" faIcon={faUser}>Iniciar Sesión</FormButton>
 		</form>
 	</div>
 </section>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import FormButton from "$components/FormButton.svelte";
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 	import FormTextArea from "$components/FormTextArea.svelte";
@@ -9,7 +10,6 @@
 		faHeading,
 		faPencil,
 	} from "@fortawesome/free-solid-svg-icons";
-	import Fa from "svelte-fa";
 	import type { ActionData } from "./$types";
 
 	export let data;
@@ -47,12 +47,7 @@
 				value={data.topic.description}
 				minlength={50}
 			/>
-			<div class="mt-6 mx-auto flex flex-col">
-				<button type="submit" class="btn btn-primary">
-					<Fa class="mr-2" icon={faPencil} />
-					Editar Tema
-				</button>
-			</div>
+			<FormButton class="btn-primary" faIcon={faPencil}>Editar Tema</FormButton>
 		</form>
 	</div>
 </section>
