@@ -4,9 +4,7 @@
 	import Footer from "$components/Footer.svelte";
 	import Navbar from "$components/Navbar.svelte";
 
-	import type { PageData } from "./$types";
-
-	export let data: PageData;
+	export let data;
 </script>
 
 <svelte:head>

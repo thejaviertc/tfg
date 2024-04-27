@@ -3,10 +3,9 @@
 
 	import { faCalendar, faExclamation } from "@fortawesome/free-solid-svg-icons";
 	import Fa from "svelte-fa";
-	import type { PageData } from "../$types";
 	import type { ActionData } from "./$types";
 
-	export let data: PageData;
+	export let data;
 	export let form: ActionData;
 </script>
 

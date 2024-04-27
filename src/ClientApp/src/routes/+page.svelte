@@ -2,9 +2,8 @@
 	import Button from "$components/Button.svelte";
 
 	import { faAddressCard, faBook } from "@fortawesome/free-solid-svg-icons";
-	import type { PageData } from "./$types";
 
-	export let data: PageData;
+	export let data;
 </script>
 
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-72">

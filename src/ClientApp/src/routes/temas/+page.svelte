@@ -4,9 +4,8 @@
 
 	import TUserRole from "$lib/TUserRole";
 	import { faPlus } from "@fortawesome/free-solid-svg-icons";
-	import type { PageData } from "../$types";
 
-	export let data: PageData;
+	export let data;
 </script>
 
 <section class="min-h-screen flex flex-col items-center px-72">
