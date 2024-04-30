@@ -29,6 +29,8 @@ public partial class User
 
 	public ICollection<Topic> Topics { get; } = new List<Topic>();
 
+	public ICollection<Idea> Ideas { get; } = new List<Idea>();
+
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();
 

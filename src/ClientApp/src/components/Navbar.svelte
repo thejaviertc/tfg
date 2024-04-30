@@ -9,6 +9,7 @@
 		faBars,
 		faBook,
 		faGraduationCap,
+		faLightbulb,
 		faSchool,
 		faTriangleExclamation,
 		faUser,
@@ -55,6 +56,7 @@
 	<div class="navbar-end hidden lg:flex">
 		<ul class="menu menu-horizontal px-1">
 			{#if user}
+				<Button class="btn-ghost" faIcon={faLightbulb} link="/ideas">Ideas</Button>
 				<Button class="btn-ghost" faIcon={faBook} link="/temas">Temas</Button>
 				<Button class="btn-ghost" faIcon={faAddressCard} link="/perfil">
 					Bienvenido, {user.name}
