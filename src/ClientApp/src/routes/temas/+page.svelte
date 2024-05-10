@@ -9,7 +9,7 @@
 </script>
 
 <section class="min-h-screen flex flex-col items-center px-72">
-	<h2 class="my-8">Temas Disponibles:</h2>
+	<h2 class="my-8">Lista de Temas:</h2>
 	{#if data.user.role === TUserRole.PROFESOR}
 		<Button class="btn-accent mb-8" faIcon={faPlus} link="/temas/nuevo">Añadir Tema</Button>
 	{/if}

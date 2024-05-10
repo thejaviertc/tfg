@@ -58,12 +58,15 @@ public class TopicsController : ControllerBase
 	[Authorize]
 	public ActionResult<List<Topic>> GetMyTopics()
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
 
-		var topics = _dbContext.Topics.Where(t => t.UserId == userId);
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
+		var topics = _dbContext.Topics.Where(t => t.UserId == user.UserId);
 
 		return Ok(topics);
 	}
@@ -77,10 +80,13 @@ public class TopicsController : ControllerBase
 	[Authorize]
 	public ActionResult AddTopic([FromForm] Topic topic)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
 
 		if (!ModelState.IsValid)
 			return BadRequest();
@@ -94,7 +100,7 @@ public class TopicsController : ControllerBase
 		if (topic.Description.Length < 50)
 			return BadRequest(new { Message = "La descripción tiene que tener al menos 50 carácteres" });
 
-		topic.UserId = (int)userId;
+		topic.UserId = user.UserId;
 
 		_dbContext.Topics.Add(topic);
 		_dbContext.SaveChanges();
@@ -111,17 +117,20 @@ public class TopicsController : ControllerBase
 	[Authorize]
 	public ActionResult EditTopic(int topicId, [FromForm] TopicRequest topicRequest)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
 
 		Topic? topic = _dbContext.Topics.Find(topicId);
 
 		if (topic is null)
 			return NotFound();
 
-		if (topic.UserId != userId)
+		if (topic.UserId != user.UserId)
 			return Forbid();
 
 		if (topic.Title.Length < 6 || topic.Title.Length > 50)
@@ -151,17 +160,20 @@ public class TopicsController : ControllerBase
 	[Authorize]
 	public ActionResult DeleteTopic(int topicId)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
 
 		Topic? topic = _dbContext.Topics.Find(topicId);
 
 		if (topic is null)
 			return NotFound();
 
-		if (topic.UserId != userId)
+		if (topic.UserId != user.UserId)
 			return Forbid();
 
 		_dbContext.Topics.Remove(topic);

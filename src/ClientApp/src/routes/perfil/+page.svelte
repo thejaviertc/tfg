@@ -4,6 +4,7 @@
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
+	import TUserRole from "$lib/TUserRole";
 	import {
 		faAddressCard,
 		faEnvelope,
@@ -83,87 +84,97 @@
 		</form>
 	</div>
 	<div>
-		<div class="bg-secondary p-6 my-10 rounded-xl">
-			<h3 class="text-black">Mis Temas:</h3>
-			<div class="flex flex-wrap gap-4 justify-center mt-4">
-				<div class="overflow-x-auto">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Título</th>
-								<th>Descripcíon Corta</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each data.topics as topic}
+		{#if data.user.role === TUserRole.PROFESOR}
+			<div class="bg-secondary p-6 my-10 rounded-xl">
+				<h3 class="text-black">Mis Temas:</h3>
+				<div class="flex flex-wrap gap-4 justify-center mt-4">
+					<div class="overflow-x-auto">
+						<table class="table">
+							<thead>
 								<tr>
-									<th>{topic.title}</th>
-									<td>{topic.shortDescription}</td>
-									<td class="flex gap-2">
-										<Button
-											class="btn-primary"
-											faIcon={faEye}
-											link="/temas/{topic.topicId}"
-										/>
-										<Button
-											class="btn-warning"
-											faIcon={faPencil}
-											link="/temas/{topic.topicId}/editar"
-										/>
-										<form method="POST" action="/temas/{topic.topicId}?/delete">
-											<button type="submit" class="btn btn-error">
-												<Fa icon={faTrash} />
-											</button>
-										</form>
-									</td>
+									<th>Título</th>
+									<th>Descripcíon Corta</th>
+									<th>Acciones</th>
 								</tr>
-							{/each}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{#each data.topics as topic}
+									<tr>
+										<th>{topic.title}</th>
+										<td>{topic.shortDescription}</td>
+										<td class="flex gap-2">
+											<Button
+												class="btn-primary"
+												faIcon={faEye}
+												link="/temas/{topic.topicId}"
+											/>
+											<Button
+												class="btn-warning"
+												faIcon={faPencil}
+												link="/temas/{topic.topicId}/editar"
+											/>
+											<form
+												method="POST"
+												action="/temas/{topic.topicId}?/delete"
+											>
+												<button type="submit" class="btn btn-error">
+													<Fa icon={faTrash} />
+												</button>
+											</form>
+										</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="bg-secondary p-6 my-10 rounded-xl">
-			<h3 class="text-black">Mis Ideas:</h3>
-			<div class="flex flex-wrap gap-4 justify-center mt-4">
-				<div class="overflow-x-auto">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Título</th>
-								<th>Descripcíon Corta</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each data.ideas as idea}
+		{/if}
+		{#if data.user.role === TUserRole.ALUMNO}
+			<div class="bg-secondary p-6 my-10 rounded-xl">
+				<h3 class="text-black">Mis Ideas:</h3>
+				<div class="flex flex-wrap gap-4 justify-center mt-4">
+					<div class="overflow-x-auto">
+						<table class="table">
+							<thead>
 								<tr>
-									<th>{idea.title}</th>
-									<td>{idea.shortDescription}</td>
-									<td class="flex gap-2">
-										<Button
-											class="btn-primary"
-											faIcon={faEye}
-											link="/ideas/{idea.ideaId}"
-										/>
-										<Button
-											class="btn-warning"
-											faIcon={faPencil}
-											link="/ideas/{idea.ideaId}/editar"
-										/>
-										<form method="POST" action="/ideas/{idea.ideaId}?/delete">
-											<button type="submit" class="btn btn-error">
-												<Fa icon={faTrash} />
-											</button>
-										</form>
-									</td>
+									<th>Título</th>
+									<th>Descripcíon Corta</th>
+									<th>Acciones</th>
 								</tr>
-							{/each}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{#each data.ideas as idea}
+									<tr>
+										<th>{idea.title}</th>
+										<td>{idea.shortDescription}</td>
+										<td class="flex gap-2">
+											<Button
+												class="btn-primary"
+												faIcon={faEye}
+												link="/ideas/{idea.ideaId}"
+											/>
+											<Button
+												class="btn-warning"
+												faIcon={faPencil}
+												link="/ideas/{idea.ideaId}/editar"
+											/>
+											<form
+												method="POST"
+												action="/ideas/{idea.ideaId}?/delete"
+											>
+												<button type="submit" class="btn btn-error">
+													<Fa icon={faTrash} />
+												</button>
+											</form>
+										</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
 </section>

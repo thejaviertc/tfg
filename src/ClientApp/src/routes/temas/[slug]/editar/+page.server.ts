@@ -5,8 +5,11 @@ import { fail, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 
 export const load: PageServerLoad = async ({ cookies, locals, params }) => {
-	// TODO: Check if is the user who created it
 	AuthService.redirectNotLoggedUsers(locals);
+	AuthService.redirectNotTeachers(locals);
+
+	// TODO: Check if is the user who created it
+	// TODO: Error message
 
 	const topicId = params.slug;
 

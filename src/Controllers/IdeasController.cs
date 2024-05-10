@@ -30,6 +30,14 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult<List<Idea>> GetIdeas()
 	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
 		return Ok(_dbContext.Ideas);
 	}
 
@@ -42,10 +50,18 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult<Idea> GetIdea(int ideaId)
 	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
 		Idea? idea = _dbContext.Ideas.Find(ideaId);
 
 		if (idea is null)
 			return NotFound();
+
+		if (idea.UserId != user.UserId && user.Role != TUserRole.Profesor)
+			return Forbid();
 
 		return Ok(idea);
 	}
@@ -58,12 +74,15 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult<List<Idea>> GetMyIdeas()
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
 
-		var ideas = _dbContext.Ideas.Where(t => t.UserId == userId);
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		var ideas = _dbContext.Ideas.Where(t => t.UserId == user.UserId);
 
 		return Ok(ideas);
 	}
@@ -77,10 +96,13 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult AddIdea([FromForm] Idea idea)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
 
 		if (!ModelState.IsValid)
 			return BadRequest();
@@ -94,7 +116,7 @@ public class IdeasController : ControllerBase
 		if (idea.Description.Length < 50)
 			return BadRequest(new { Message = "La descripción tiene que tener al menos 50 carácteres" });
 
-		idea.UserId = (int)userId;
+		idea.UserId = user.UserId;
 
 		_dbContext.Ideas.Add(idea);
 		_dbContext.SaveChanges();
@@ -111,17 +133,20 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult EditIdea(int ideaId, [FromForm] IdeaRequest ideaRequest)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
 
 		Idea? idea = _dbContext.Ideas.Find(ideaId);
 
 		if (idea is null)
 			return NotFound();
 
-		if (idea.UserId != userId)
+		if (idea.UserId != user.UserId)
 			return Forbid();
 
 		if (idea.Title.Length < 6 || idea.Title.Length > 50)
@@ -151,17 +176,20 @@ public class IdeasController : ControllerBase
 	[Authorize]
 	public ActionResult DeleteIdea(int ideaId)
 	{
-		int? userId = _authService.GetUserIdFromJwt(User);
+		User? user = _authService.GetAuthenticatedUser(User);
 
-		if (userId is null)
-			return BadRequest();
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
 
 		Idea? idea = _dbContext.Ideas.Find(ideaId);
 
 		if (idea is null)
 			return NotFound();
 
-		if (idea.UserId != userId)
+		if (idea.UserId != user.UserId)
 			return Forbid();
 
 		_dbContext.Ideas.Remove(idea);
