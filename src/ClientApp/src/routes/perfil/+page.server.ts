@@ -1,5 +1,7 @@
 import AuthService from "$lib/AuthService";
+import type { IIdea } from "$lib/IIdea";
 import type { ITopic } from "$lib/ITopic";
+import TUserRole from "$lib/TUserRole";
 import { API_URL } from "$lib/constants";
 import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
@@ -7,15 +9,34 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ cookies, locals }) => {
 	AuthService.redirectNotLoggedUsers(locals);
 
-	const response = await fetch(`${API_URL}/topics/me`, {
-		method: "GET",
-		headers: {
-			Authorization: `Bearer ${cookies.get("session_id")}`,
-		},
-	});
+	let topics: ITopic[] = [];
+	let ideas: IIdea[] = [];
+
+	if (locals.user.role === TUserRole.ALUMNO) {
+		const ideasResponse = await fetch(`${API_URL}/ideas/me`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${cookies.get("session_id")}`,
+			},
+		});
+
+		ideas = await ideasResponse.json();
+	}
+
+	if (locals.user.role === TUserRole.PROFESOR) {
+		const topicsResponse = await fetch(`${API_URL}/topics/me`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${cookies.get("session_id")}`,
+			},
+		});
+
+		topics = await topicsResponse.json();
+	}
 
 	return {
-		topics: (await response.json()) as ITopic[],
+		topics,
+		ideas,
 	};
 };
 

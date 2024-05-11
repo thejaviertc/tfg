@@ -13,6 +13,16 @@ export default class AuthService {
 	}
 
 	/**
+	 * Prevents users without Student role entering protected routes
+	 * @param locals App.Locals
+	 */
+	public static redirectNotStudents(locals: App.Locals) {
+		if (locals.user.role !== TUserRole.ALUMNO) {
+			throw redirect(302, "/");
+		}
+	}
+
+	/**
 	 * Prevents users without Teacher role entering protected routes
 	 * @param locals App.Locals
 	 */

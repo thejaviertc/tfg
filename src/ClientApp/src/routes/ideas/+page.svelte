@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
-	import Topic from "$components/Topic.svelte";
+	import Idea from "$components/Idea.svelte";
 
 	import TUserRole from "$lib/TUserRole";
 	import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -9,13 +9,13 @@
 </script>
 
 <section class="min-h-screen flex flex-col items-center px-72">
-	<h2 class="my-8">Lista de Temas:</h2>
-	{#if data.user.role === TUserRole.PROFESOR}
-		<Button class="btn-accent mb-8" faIcon={faPlus} link="/temas/nuevo">Añadir Tema</Button>
+	<h2 class="my-8">Lista de Ideas:</h2>
+	{#if data.user.role === TUserRole.ALUMNO}
+		<Button class="btn-accent mb-8" faIcon={faPlus} link="/ideas/nuevo">Añadir Idea</Button>
 	{/if}
 	<div class="grid grid-cols-3 gap-8">
-		{#each data.topics as topic}
-			<Topic data={topic} />
+		{#each data.ideas as idea}
+			<Idea data={idea} />
 		{/each}
 	</div>
 </section>
