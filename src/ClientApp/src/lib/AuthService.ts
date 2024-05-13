@@ -17,7 +17,7 @@ export default class AuthService {
 	 * @param locals App.Locals
 	 */
 	public static redirectNotStudents(locals: App.Locals) {
-		if (locals.user.role !== TUserRole.ALUMNO) {
+		if (locals.user.role !== TUserRole.Alumno) {
 			throw redirect(302, "/");
 		}
 	}
@@ -27,7 +27,7 @@ export default class AuthService {
 	 * @param locals App.Locals
 	 */
 	public static redirectNotTeachers(locals: App.Locals) {
-		if (locals.user.role !== TUserRole.PROFESOR) {
+		if (locals.user.role !== TUserRole.Profesor) {
 			throw redirect(302, "/");
 		}
 	}

@@ -10,7 +10,7 @@
 
 <section class="min-h-screen flex flex-col items-center px-72">
 	<h2 class="my-8">Lista de Ideas:</h2>
-	{#if data.user.role === TUserRole.ALUMNO}
+	{#if data.user.role === TUserRole.Alumno}
 		<Button class="btn-accent mb-8" faIcon={faPlus} link="/ideas/nuevo">Añadir Idea</Button>
 	{/if}
 	<div class="grid grid-cols-3 gap-8">
