@@ -8,8 +8,7 @@
 </script>
 
 <svelte:head>
-	<!-- TODO: Change -->
-	<title>TFG Temporal Name</title>
+	<title>Conecta TFG</title>
 </svelte:head>
 
 <Navbar user={data.user} />

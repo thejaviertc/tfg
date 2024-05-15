@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 [Table("user")]
 public partial class User

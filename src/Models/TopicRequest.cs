@@ -1,4 +1,4 @@
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 public class TopicRequest
 {

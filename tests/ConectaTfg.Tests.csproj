@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
-    <ProjectReference Include="..\src\TfgTemporalName.csproj" />
+    <ProjectReference Include="..\src\ConectaTfg.csproj" />
   </ItemGroup>
 
 </Project>

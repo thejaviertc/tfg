@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 public class ApplicationDbContext : DbContext
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 [Table("idea")]
 public class Idea

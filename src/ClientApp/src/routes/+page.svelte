@@ -7,7 +7,7 @@
 </script>
 
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-72">
-	<h1>TFG Temporal Name</h1>
+	<h1>Conecta TFG</h1>
 	<h5 class="my-10">
 		Mi idea consiste en desarrollar una aplicación web destinada a facilitar la búsqueda de
 		tutores y temas para TFGs en nuestra universidad, ya que en mi opinión, actualmente entre
