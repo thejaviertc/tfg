@@ -14,7 +14,7 @@
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black mb-2">{data.idea.title}</h3>
-		<Badge faIcon={faCalendar}>
+		<Badge class="badge-primary" faIcon={faCalendar}>
 			{new Date(data.idea.createdAt).toLocaleDateString()}
 		</Badge>
 		<h5 class="text-black mt-4">{data.idea.shortDescription}</h5>

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,9 @@ public class Idea
 
 	[Column(TypeName = "DATETIME")]
 	public required DateTime CreatedAt { get; set; }
+
+	[DefaultValue(TStatus.Available)]
+	public required TStatus Status { get; set; }
 
 	public int UserId { get; set; }
 

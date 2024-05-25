@@ -5,7 +5,7 @@
 	export let faIcon: IconDefinition;
 </script>
 
-<div class="badge badge-primary badge-md p-3 text-white">
+<div class="badge {$$props.class} badge-md p-3 text-white">
 	<Fa icon={faIcon} class="mr-2" />
 	<slot />
 </div>
