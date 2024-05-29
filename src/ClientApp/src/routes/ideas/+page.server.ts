@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 		});
 	}
 
-	if (locals.user.role === TUserRole.PROFESOR) {
+	if (locals.user.role === TUserRole.Profesor) {
 		response = await fetch(`${API_URL}/ideas`, {
 			method: "GET",
 			headers: {

@@ -84,7 +84,7 @@
 		</form>
 	</div>
 	<div>
-		{#if data.user.role === TUserRole.PROFESOR}
+		{#if data.user.role === TUserRole.Profesor}
 			<div class="bg-secondary p-6 my-10 rounded-xl">
 				<h3 class="text-black">Mis Temas:</h3>
 				<div class="flex flex-wrap gap-4 justify-center mt-4">

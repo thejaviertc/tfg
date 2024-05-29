@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 		ideas = await ideasResponse.json();
 	}
 
-	if (locals.user.role === TUserRole.PROFESOR) {
+	if (locals.user.role === TUserRole.Profesor) {
 		const topicsResponse = await fetch(`${API_URL}/topics/me`, {
 			method: "GET",
 			headers: {
