@@ -1,3 +1,4 @@
+import type { IUser } from "./IUser";
 import type TStatus from "./TStatus";
 
 interface ITopic {
@@ -7,7 +8,7 @@ interface ITopic {
 	description: string;
 	createdAt: Date;
 	status: TStatus;
-	userId: number;
+	user: IUser;
 }
 
 export type { ITopic };

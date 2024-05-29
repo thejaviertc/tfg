@@ -2,6 +2,7 @@
 using ConectaTfg.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConectaTfg.Controllers;
 
@@ -28,9 +29,30 @@ public class TopicsController : ControllerBase
 	/// <returns></returns>
 	[HttpGet]
 	[Authorize]
-	public ActionResult<List<Topic>> GetTopics()
+	public ActionResult<List<TopicDto>> GetTopics()
 	{
-		return Ok(_dbContext.Topics);
+		return Ok(
+			_dbContext
+				.Topics.Include(t => t.User)
+				.Select(t => new TopicDto
+				{
+					TopicId = t.TopicId,
+					Title = t.Title,
+					ShortDescription = t.ShortDescription,
+					Description = t.Description,
+					CreatedAt = t.CreatedAt,
+					Status = t.Status,
+					User = new UserDto
+					{
+						UserId = t.User.UserId,
+						Name = t.User.Name,
+						Surname = t.User.Surname,
+						Email = t.User.Email,
+						Role = t.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>
@@ -40,14 +62,32 @@ public class TopicsController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("{topicId}")]
 	[Authorize]
-	public ActionResult<Topic> GetTopic(int topicId)
+	public ActionResult<TopicDto> GetTopic(int topicId)
 	{
-		Topic? topic = _dbContext.Topics.Find(topicId);
+		Topic? topic = _dbContext.Topics.Include(t => t.User).FirstOrDefault(t => t.TopicId == topicId);
 
 		if (topic is null)
 			return NotFound();
 
-		return Ok(topic);
+		return Ok(
+			new TopicDto
+			{
+				TopicId = topic.TopicId,
+				Title = topic.Title,
+				ShortDescription = topic.ShortDescription,
+				Description = topic.Description,
+				CreatedAt = topic.CreatedAt,
+				Status = topic.Status,
+				User = new UserDto
+				{
+					UserId = topic.User.UserId,
+					Name = topic.User.Name,
+					Surname = topic.User.Surname,
+					Email = topic.User.Email,
+					Role = topic.User.Role
+				}
+			}
+		);
 	}
 
 	/// <summary>
@@ -56,7 +96,7 @@ public class TopicsController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("me")]
 	[Authorize]
-	public ActionResult<List<Topic>> GetMyTopics()
+	public ActionResult<List<TopicDto>> GetMyTopics()
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
@@ -66,9 +106,28 @@ public class TopicsController : ControllerBase
 		if (user.Role != TUserRole.Profesor)
 			return Forbid();
 
-		var topics = _dbContext.Topics.Where(t => t.UserId == user.UserId);
-
-		return Ok(topics);
+		return Ok(
+			_dbContext
+				.Topics.Where(t => t.UserId == user.UserId)
+				.Select(t => new TopicDto
+				{
+					TopicId = t.TopicId,
+					Title = t.Title,
+					ShortDescription = t.ShortDescription,
+					Description = t.Description,
+					CreatedAt = t.CreatedAt,
+					Status = t.Status,
+					User = new UserDto
+					{
+						UserId = t.User.UserId,
+						Name = t.User.Name,
+						Surname = t.User.Surname,
+						Email = t.User.Email,
+						Role = t.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>

@@ -24,7 +24,18 @@ public class ApplicationDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<User>().HasMany(u => u.Topics).WithOne().HasForeignKey(t => t.UserId).IsRequired();
-		modelBuilder.Entity<User>().HasMany(u => u.Ideas).WithOne().HasForeignKey(t => t.UserId).IsRequired();
+		modelBuilder
+			.Entity<Topic>()
+			.HasOne(t => t.User)
+			.WithMany(u => u.Topics)
+			.HasForeignKey(t => t.UserId)
+			.IsRequired();
+
+		modelBuilder
+			.Entity<Idea>()
+			.HasOne(i => i.User)
+			.WithMany(u => u.Ideas)
+			.HasForeignKey(i => i.UserId)
+			.IsRequired();
 	}
 }

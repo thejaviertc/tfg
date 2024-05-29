@@ -3,7 +3,7 @@
 	import FormNotification from "$components/FormNotification.svelte";
 
 	import TStatus from "$lib/TStatus";
-	import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+	import { faAt, faCalendar, faUser } from "@fortawesome/free-solid-svg-icons";
 	import type { ActionData } from "./$types";
 
 	export let data;
@@ -15,7 +15,14 @@
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
 		<h3 class="text-black mb-2">{data.topic.title}</h3>
-		<div class="flex gap-2">
+		<div class="flex flex-wrap gap-2">
+			<Badge class="badge-primary" faIcon={faUser}>
+				{data.user.name}
+				{data.user.surname}
+			</Badge>
+			<Badge class="badge-primary" faIcon={faAt}>
+				{data.user.email}
+			</Badge>
 			<Badge class="badge-primary" faIcon={faCalendar}>
 				{new Date(data.topic.createdAt).toLocaleDateString()}
 			</Badge>

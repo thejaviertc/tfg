@@ -1,3 +1,4 @@
+import type { IUser } from "./IUser";
 import type TStatus from "./TStatus";
 
 interface IIdea {
@@ -7,8 +8,7 @@ interface IIdea {
 	description: string;
 	createdAt: Date;
 	status: TStatus;
-	userId: number;
+	user: IUser;
 }
 
 export type { IIdea };
-

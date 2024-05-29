@@ -4,7 +4,7 @@
 
 	import type { ITopic } from "$lib/ITopic";
 	import TStatus from "$lib/TStatus";
-	import { faCalendar, faEye } from "@fortawesome/free-solid-svg-icons";
+	import { faAt, faCalendar, faEye, faUser } from "@fortawesome/free-solid-svg-icons";
 
 	export let data: ITopic;
 </script>
@@ -12,7 +12,14 @@
 <div class="card bg-secondary shadow-xl">
 	<div class="card-body">
 		<h2 class="card-title text-black">{data.title}</h2>
-		<div class="flex gap-2">
+		<div class="flex flex-wrap gap-2">
+			<Badge class="badge-primary" faIcon={faUser}>
+				{data.user.name}
+				{data.user.surname}
+			</Badge>
+			<Badge class="badge-primary" faIcon={faAt}>
+				{data.user.email}
+			</Badge>
 			<Badge class="badge-primary" faIcon={faCalendar}>
 				{new Date(data.createdAt).toLocaleDateString()}
 			</Badge>

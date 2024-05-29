@@ -2,6 +2,7 @@
 using ConectaTfg.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConectaTfg.Controllers;
 
@@ -28,7 +29,7 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet]
 	[Authorize]
-	public ActionResult<List<Idea>> GetIdeas()
+	public ActionResult<List<IdeaDto>> GetIdeas()
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
@@ -38,7 +39,28 @@ public class IdeasController : ControllerBase
 		if (user.Role != TUserRole.Profesor)
 			return Forbid();
 
-		return Ok(_dbContext.Ideas);
+		return Ok(
+			_dbContext
+				.Ideas.Include(i => i.User)
+				.Select(i => new IdeaDto
+				{
+					IdeaId = i.IdeaId,
+					Title = i.Title,
+					ShortDescription = i.ShortDescription,
+					Description = i.Description,
+					CreatedAt = i.CreatedAt,
+					Status = i.Status,
+					User = new UserDto
+					{
+						UserId = i.User.UserId,
+						Name = i.User.Name,
+						Surname = i.User.Surname,
+						Email = i.User.Email,
+						Role = i.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>
@@ -48,14 +70,14 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("{ideaId}")]
 	[Authorize]
-	public ActionResult<Idea> GetIdea(int ideaId)
+	public ActionResult<IdeaDto> GetIdea(int ideaId)
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
 			return Unauthorized();
 
-		Idea? idea = _dbContext.Ideas.Find(ideaId);
+		Idea? idea = _dbContext.Ideas.Include(i => i.User).FirstOrDefault(i => i.IdeaId == ideaId);
 
 		if (idea is null)
 			return NotFound();
@@ -63,7 +85,25 @@ public class IdeasController : ControllerBase
 		if (idea.UserId != user.UserId && user.Role != TUserRole.Profesor)
 			return Forbid();
 
-		return Ok(idea);
+		return Ok(
+			new IdeaDto
+			{
+				IdeaId = idea.IdeaId,
+				Title = idea.Title,
+				ShortDescription = idea.ShortDescription,
+				Description = idea.Description,
+				CreatedAt = idea.CreatedAt,
+				Status = idea.Status,
+				User = new UserDto
+				{
+					UserId = idea.User.UserId,
+					Name = idea.User.Name,
+					Surname = idea.User.Surname,
+					Email = idea.User.Email,
+					Role = idea.User.Role
+				}
+			}
+		);
 	}
 
 	/// <summary>
@@ -72,7 +112,7 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("me")]
 	[Authorize]
-	public ActionResult<List<Idea>> GetMyIdeas()
+	public ActionResult<List<IdeaDto>> GetMyIdeas()
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
@@ -82,9 +122,28 @@ public class IdeasController : ControllerBase
 		if (user.Role != TUserRole.Alumno)
 			return Forbid();
 
-		var ideas = _dbContext.Ideas.Where(t => t.UserId == user.UserId);
-
-		return Ok(ideas);
+		return Ok(
+			_dbContext
+				.Ideas.Where(i => i.UserId == user.UserId)
+				.Select(i => new IdeaDto
+				{
+					IdeaId = i.IdeaId,
+					Title = i.Title,
+					ShortDescription = i.ShortDescription,
+					Description = i.Description,
+					CreatedAt = i.CreatedAt,
+					Status = i.Status,
+					User = new UserDto
+					{
+						UserId = i.User.UserId,
+						Name = i.User.Name,
+						Surname = i.User.Surname,
+						Email = i.User.Email,
+						Role = i.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>
