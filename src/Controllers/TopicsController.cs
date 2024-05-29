@@ -1,4 +1,6 @@
 ﻿using ConectaTfg.Models;
+using ConectaTfg.Models.DTOs;
+using ConectaTfg.Models.Requests;
 using ConectaTfg.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

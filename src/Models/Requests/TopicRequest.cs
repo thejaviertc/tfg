@@ -1,4 +1,4 @@
-namespace ConectaTfg.Models;
+namespace ConectaTfg.Models.Requests;
 
 public class TopicRequest
 {

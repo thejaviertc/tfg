@@ -29,7 +29,7 @@ public class Topic
 	public int UserId { get; set; }
 
 	[ForeignKey("UserId")]
-	public User User { get; set; }
+	public required User User { get; set; }
 
 	public Topic()
 	{
