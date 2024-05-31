@@ -1,16 +1,18 @@
 <script lang="ts">
 	import Badge from "$components/Badge.svelte";
+	import FormButton from "$components/FormButton.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
 	import TStatus from "$lib/TStatus";
-	import { faAt, faCalendar, faUser } from "@fortawesome/free-solid-svg-icons";
+	import TUserRole from "$lib/TUserRole";
+	import { faAt, faCalendar, faPaperPlane, faUser } from "@fortawesome/free-solid-svg-icons";
 	import type { ActionData } from "./$types";
 
 	export let data;
 	export let form: ActionData;
 </script>
 
-<FormNotification {form} />
+<FormNotification {form} successMessage="Has solicitado la idea correctamente!" />
 
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
@@ -35,5 +37,10 @@
 		</div>
 		<h5 class="text-black mt-4">{data.idea.shortDescription}</h5>
 		<h5 class="text-black mt-4 mb-2">{data.idea.description}</h5>
+		{#if data.user.role === TUserRole.Profesor}
+			<form method="POST" action="?/request">
+				<FormButton class="btn-primary" faIcon={faPaperPlane}>Solicitar Idea</FormButton>
+			</form>
+		{/if}
 	</div>
 </section>

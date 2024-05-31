@@ -242,4 +242,39 @@ public class TopicsController : ControllerBase
 
 		return Ok();
 	}
+
+	/// <summary>
+	/// Requests the specified Topic
+	/// </summary>
+	/// <param name="topicId">The ID of the Topic</param>
+	/// <returns></returns>
+	[HttpPost("{topicId}/request")]
+	[Authorize]
+	public ActionResult RequestTopic(int topicId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		Topic? topic = _dbContext.Topics.Find(topicId);
+
+		if (topic is null)
+			return NotFound();
+
+		if (topic.Status != TStatus.Available)
+			return BadRequest(new { Message = "Este tema no está disponible!" });
+
+		topic.UserIdRequested = user.UserId;
+		topic.UserRequestered = user;
+
+		topic.Status = TStatus.WaitingResponse;
+
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }

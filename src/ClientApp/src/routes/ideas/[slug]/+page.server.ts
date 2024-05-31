@@ -22,6 +22,25 @@ export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 };
 
 export const actions: Actions = {
+	request: async ({ request, params, cookies }) => {
+		const ideaId = params.slug;
+
+		const response = await fetch(`${API_URL}/ideas/${ideaId}/request`, {
+			method: "POST",
+			body: await request.formData(),
+			headers: {
+				Authorization: `Bearer ${cookies.get("session_id")}`,
+			},
+		});
+
+		if (!response.ok) {
+			const data = await response.json();
+
+			return fail(400, { message: data.message });
+		}
+
+		return { success: true };
+	},
 	delete: async ({ params, cookies }) => {
 		const ideaId = params.slug;
 

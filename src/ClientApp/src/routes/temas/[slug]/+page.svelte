@@ -1,16 +1,18 @@
 <script lang="ts">
 	import Badge from "$components/Badge.svelte";
+	import FormButton from "$components/FormButton.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
 	import TStatus from "$lib/TStatus";
-	import { faAt, faCalendar, faUser } from "@fortawesome/free-solid-svg-icons";
+	import TUserRole from "$lib/TUserRole";
+	import { faAt, faCalendar, faPaperPlane, faUser } from "@fortawesome/free-solid-svg-icons";
 	import type { ActionData } from "./$types";
 
 	export let data;
 	export let form: ActionData;
 </script>
 
-<FormNotification {form} />
+<FormNotification {form} successMessage="Has solicitado el tema correctamente!" />
 
 <section class="min-h-screen hero px-72">
 	<div class="bg-secondary p-6 my-10 rounded-xl">
@@ -35,6 +37,10 @@
 		</div>
 		<h5 class="text-black mt-4">{data.topic.shortDescription}</h5>
 		<h5 class="text-black my-4">{data.topic.description}</h5>
-		<!-- <Button class="btn-primary" faIcon={faPaperPlane} link="/">Solicitar Tema</Button> -->
+		{#if data.user.role === TUserRole.Alumno}
+			<form method="POST" action="?/request">
+				<FormButton class="btn-primary" faIcon={faPaperPlane}>Solicitar Tema</FormButton>
+			</form>
+		{/if}
 	</div>
 </section>

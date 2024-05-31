@@ -258,4 +258,39 @@ public class IdeasController : ControllerBase
 
 		return Ok();
 	}
+
+	/// <summary>
+	/// Requests the specified Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpPost("{ideaId}/request")]
+	[Authorize]
+	public ActionResult RequestIdea(int ideaId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Find(ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.Available)
+			return BadRequest(new { Message = "Esta idea no está disponible!" });
+
+		idea.UserIdRequested = user.UserId;
+		idea.UserRequestered = user;
+
+		idea.Status = TStatus.WaitingResponse;
+
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }

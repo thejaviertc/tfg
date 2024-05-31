@@ -23,13 +23,18 @@ public class Topic
 	[Column(TypeName = "DATETIME")]
 	public required DateTime CreatedAt { get; set; }
 
-	[DefaultValue(TStatus.Available)]
-	public required TStatus Status { get; set; }
-
 	public int UserId { get; set; }
 
 	[ForeignKey("UserId")]
 	public required User User { get; set; }
+
+	[DefaultValue(TStatus.Available)]
+	public required TStatus Status { get; set; }
+
+	public int? UserIdRequested { get; set; }
+
+	[ForeignKey("UserIdRequested")]
+	public User? UserRequestered { get; set; }
 
 	public Topic()
 	{

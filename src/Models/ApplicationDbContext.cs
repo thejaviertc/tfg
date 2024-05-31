@@ -24,6 +24,7 @@ public class ApplicationDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+		// TODO: Añadir OnUpdate y OnDelete
 		modelBuilder
 			.Entity<Topic>()
 			.HasOne(t => t.User)
@@ -32,10 +33,22 @@ public class ApplicationDbContext : DbContext
 			.IsRequired();
 
 		modelBuilder
+			.Entity<Topic>()
+			.HasOne(t => t.UserRequestered)
+			.WithMany(u => u.RequestedTopics)
+			.HasForeignKey(t => t.UserIdRequested);
+
+		modelBuilder
 			.Entity<Idea>()
 			.HasOne(i => i.User)
 			.WithMany(u => u.Ideas)
 			.HasForeignKey(i => i.UserId)
 			.IsRequired();
+
+		modelBuilder
+			.Entity<Idea>()
+			.HasOne(i => i.UserRequestered)
+			.WithMany(u => u.RequestedIdeas)
+			.HasForeignKey(i => i.UserIdRequested);
 	}
 }
