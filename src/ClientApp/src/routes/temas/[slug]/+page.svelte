@@ -37,7 +37,7 @@
 		</div>
 		<h5 class="text-black mt-4">{data.topic.shortDescription}</h5>
 		<h5 class="text-black my-4">{data.topic.description}</h5>
-		{#if data.user.role === TUserRole.Alumno}
+		{#if data.user.role === TUserRole.Alumno && data.topic.status === TStatus.Available}
 			<form method="POST" action="?/request">
 				<FormButton class="btn-primary" faIcon={faPaperPlane}>Solicitar Tema</FormButton>
 			</form>
