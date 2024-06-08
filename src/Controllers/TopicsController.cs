@@ -277,4 +277,72 @@ public class TopicsController : ControllerBase
 
 		return Ok();
 	}
+
+	/// <summary>
+	/// Gets the Yser that made the petition of the Topic
+	/// </summary>
+	/// <param name="topicId">The ID of the Topic</param>
+	/// <returns></returns>
+	[HttpGet("{topicId}/petition")]
+	[Authorize]
+	public ActionResult GetPetition(int topicId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
+		Topic? topic = _dbContext.Topics.Include(t => t.UserRequestered).FirstOrDefault(t => t.TopicId == topicId);
+
+		if (topic is null)
+			return NotFound();
+
+		if (topic.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Este tema no tiene ninguna petición!" });
+
+		return Ok(
+			new UserDto
+			{
+				UserId = topic.UserRequestered!.UserId,
+				Name = topic.UserRequestered!.Name,
+				Surname = topic.UserRequestered!.Surname,
+				Email = topic.UserRequestered!.Email,
+				Role = topic.UserRequestered!.Role
+			}
+		);
+	}
+
+	/// <summary>
+	/// Changes the Status of the Topic
+	/// </summary>
+	/// <param name="topicId">The ID of the Topic</param>
+	/// <returns></returns>
+	[HttpPut("{topicId}/status/{isAccepted}")]
+	[Authorize]
+	public ActionResult UpdateStatus(int topicId, bool isAccepted)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
+		Topic? topic = _dbContext.Topics.Find(topicId);
+
+		if (topic is null)
+			return NotFound();
+
+		if (topic.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Este tema no tiene ninguna petición!" });
+
+		topic.Status = isAccepted ? TStatus.Accepted : TStatus.Available;
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }

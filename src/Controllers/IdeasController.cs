@@ -293,4 +293,72 @@ public class IdeasController : ControllerBase
 
 		return Ok();
 	}
+
+	/// <summary>
+	/// Gets the User that made the petition of the Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpGet("{ideaId}/petition")]
+	[Authorize]
+	public ActionResult GetPetition(int ideaId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Include(t => t.UserRequestered).FirstOrDefault(t => t.IdeaId == ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Esta idea no tiene ninguna petición!" });
+
+		return Ok(
+			new UserDto
+			{
+				UserId = idea.UserRequestered!.UserId,
+				Name = idea.UserRequestered!.Name,
+				Surname = idea.UserRequestered!.Surname,
+				Email = idea.UserRequestered!.Email,
+				Role = idea.UserRequestered!.Role
+			}
+		);
+	}
+
+	/// <summary>
+	/// Changes the Status of the Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpPut("{ideaId}/status/{isAccepted}")]
+	[Authorize]
+	public ActionResult UpdateStatus(int ideaId, bool isAccepted)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Find(ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Esta idea no tiene ninguna petición!" });
+
+		idea.Status = isAccepted ? TStatus.Accepted : TStatus.Available;
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
 }

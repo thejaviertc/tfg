@@ -15,4 +15,6 @@ public class IdeaDto
 	public required TStatus Status { get; set; }
 
 	public required UserDto User { get; set; }
+
+	public UserDto? UserRequestered { get; set; }
 }

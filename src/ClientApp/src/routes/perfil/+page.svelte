@@ -4,6 +4,7 @@
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
+	import TStatus from "$lib/TStatus";
 	import TUserRole from "$lib/TUserRole";
 	import {
 		faAddressCard,
@@ -107,18 +108,32 @@
 												class="btn-primary"
 												faIcon={faEye}
 												link="/temas/{topic.topicId}"
-											/>
+											>
+												Ver
+											</Button>
 											<Button
 												class="btn-warning"
 												faIcon={faPencil}
 												link="/temas/{topic.topicId}/editar"
-											/>
+											>
+												Editar
+											</Button>
+											{#if topic.status === TStatus.WaitingResponse}
+												<Button
+													class="btn-success"
+													faIcon={faEnvelope}
+													link="/temas/{topic.topicId}/peticion"
+												>
+													Responder
+												</Button>
+											{/if}
 											<form
 												method="POST"
 												action="/temas/{topic.topicId}?/delete"
 											>
 												<button type="submit" class="btn btn-error">
 													<Fa icon={faTrash} />
+													Eliminar
 												</button>
 											</form>
 										</td>
@@ -153,18 +168,32 @@
 												class="btn-primary"
 												faIcon={faEye}
 												link="/ideas/{idea.ideaId}"
-											/>
+											>
+												Ver
+											</Button>
 											<Button
 												class="btn-warning"
 												faIcon={faPencil}
 												link="/ideas/{idea.ideaId}/editar"
-											/>
+											>
+												Editar
+											</Button>
+											{#if idea.status === TStatus.WaitingResponse}
+												<Button
+													class="btn-success"
+													faIcon={faEnvelope}
+													link="/ideas/{idea.ideaId}/peticion"
+												>
+													Responder
+												</Button>
+											{/if}
 											<form
 												method="POST"
 												action="/ideas/{idea.ideaId}?/delete"
 											>
 												<button type="submit" class="btn btn-error">
 													<Fa icon={faTrash} />
+													Eliminar
 												</button>
 											</form>
 										</td>
