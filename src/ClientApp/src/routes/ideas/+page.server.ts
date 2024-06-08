@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 
 	let response;
 
-	if (locals.user.role === TUserRole.ALUMNO) {
+	if (locals.user.role === TUserRole.Alumno) {
 		response = await fetch(`${API_URL}/ideas/me`, {
 			method: "GET",
 			headers: {
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 		});
 	}
 
-	if (locals.user.role === TUserRole.PROFESOR) {
+	if (locals.user.role === TUserRole.Profesor) {
 		response = await fetch(`${API_URL}/ideas`, {
 			method: "GET",
 			headers: {

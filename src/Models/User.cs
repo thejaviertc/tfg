@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 [Table("user")]
 public partial class User
@@ -29,7 +29,11 @@ public partial class User
 
 	public ICollection<Topic> Topics { get; } = new List<Topic>();
 
+	public ICollection<Topic> RequestedTopics { get; } = new List<Topic>();
+
 	public ICollection<Idea> Ideas { get; } = new List<Idea>();
+
+	public ICollection<Idea> RequestedIdeas { get; } = new List<Idea>();
 
 	[GeneratedRegex(@"^.+@(alumnos\.)?upm\.es$")]
 	private static partial Regex UpmEmailRegex();

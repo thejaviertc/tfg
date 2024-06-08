@@ -1,8 +1,8 @@
 using System.Text;
+using ConectaTfg.Models;
+using ConectaTfg.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using TfgTemporalName.Models;
-using TfgTemporalName.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

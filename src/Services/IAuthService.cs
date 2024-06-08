@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using TfgTemporalName.Models;
+using ConectaTfg.Models;
 
-namespace TfgTemporalName.Services;
+namespace ConectaTfg.Services;
 
 public interface IAuthService
 {

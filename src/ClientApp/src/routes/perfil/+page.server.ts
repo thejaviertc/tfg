@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 	let topics: ITopic[] = [];
 	let ideas: IIdea[] = [];
 
-	if (locals.user.role === TUserRole.ALUMNO) {
+	if (locals.user.role === TUserRole.Alumno) {
 		const ideasResponse = await fetch(`${API_URL}/ideas/me`, {
 			method: "GET",
 			headers: {
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ cookies, locals }) => {
 		ideas = await ideasResponse.json();
 	}
 
-	if (locals.user.role === TUserRole.PROFESOR) {
+	if (locals.user.role === TUserRole.Profesor) {
 		const topicsResponse = await fetch(`${API_URL}/topics/me`, {
 			method: "GET",
 			headers: {

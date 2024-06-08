@@ -1,15 +1,15 @@
 enum TUserRole {
-	ALUMNO,
-	PROFESOR,
+	Alumno,
+	Profesor,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace TUserRole {
 	export function toText(tUserRole: TUserRole): string {
 		switch (tUserRole) {
-			case TUserRole.ALUMNO:
+			case TUserRole.Alumno:
 				return "Alumno";
-			case TUserRole.PROFESOR:
+			case TUserRole.Profesor:
 				return "Profesor";
 			default:
 				return "Desconocido";

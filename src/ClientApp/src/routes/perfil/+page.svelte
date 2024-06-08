@@ -4,6 +4,7 @@
 	import FormInput from "$components/FormInput.svelte";
 	import FormNotification from "$components/FormNotification.svelte";
 
+	import TStatus from "$lib/TStatus";
 	import TUserRole from "$lib/TUserRole";
 	import {
 		faAddressCard,
@@ -84,7 +85,7 @@
 		</form>
 	</div>
 	<div>
-		{#if data.user.role === TUserRole.PROFESOR}
+		{#if data.user.role === TUserRole.Profesor}
 			<div class="bg-secondary p-6 my-10 rounded-xl">
 				<h3 class="text-black">Mis Temas:</h3>
 				<div class="flex flex-wrap gap-4 justify-center mt-4">
@@ -107,18 +108,32 @@
 												class="btn-primary"
 												faIcon={faEye}
 												link="/temas/{topic.topicId}"
-											/>
+											>
+												Ver
+											</Button>
 											<Button
 												class="btn-warning"
 												faIcon={faPencil}
 												link="/temas/{topic.topicId}/editar"
-											/>
+											>
+												Editar
+											</Button>
+											{#if topic.status === TStatus.WaitingResponse}
+												<Button
+													class="btn-success"
+													faIcon={faEnvelope}
+													link="/temas/{topic.topicId}/peticion"
+												>
+													Responder
+												</Button>
+											{/if}
 											<form
 												method="POST"
 												action="/temas/{topic.topicId}?/delete"
 											>
 												<button type="submit" class="btn btn-error">
 													<Fa icon={faTrash} />
+													Eliminar
 												</button>
 											</form>
 										</td>
@@ -130,7 +145,7 @@
 				</div>
 			</div>
 		{/if}
-		{#if data.user.role === TUserRole.ALUMNO}
+		{#if data.user.role === TUserRole.Alumno}
 			<div class="bg-secondary p-6 my-10 rounded-xl">
 				<h3 class="text-black">Mis Ideas:</h3>
 				<div class="flex flex-wrap gap-4 justify-center mt-4">
@@ -153,18 +168,32 @@
 												class="btn-primary"
 												faIcon={faEye}
 												link="/ideas/{idea.ideaId}"
-											/>
+											>
+												Ver
+											</Button>
 											<Button
 												class="btn-warning"
 												faIcon={faPencil}
 												link="/ideas/{idea.ideaId}/editar"
-											/>
+											>
+												Editar
+											</Button>
+											{#if idea.status === TStatus.WaitingResponse}
+												<Button
+													class="btn-success"
+													faIcon={faEnvelope}
+													link="/ideas/{idea.ideaId}/peticion"
+												>
+													Responder
+												</Button>
+											{/if}
 											<form
 												method="POST"
 												action="/ideas/{idea.ideaId}?/delete"
 											>
 												<button type="submit" class="btn btn-error">
 													<Fa icon={faTrash} />
+													Eliminar
 												</button>
 											</form>
 										</td>

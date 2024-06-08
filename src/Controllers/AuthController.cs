@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TfgTemporalName.Models;
-using TfgTemporalName.Services;
+﻿using ConectaTfg.Models;
+using ConectaTfg.Models.Requests;
+using ConectaTfg.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace TfgTemporalName.Controllers;
+namespace ConectaTfg.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

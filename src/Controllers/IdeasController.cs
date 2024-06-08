@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ConectaTfg.Models;
+using ConectaTfg.Models.DTOs;
+using ConectaTfg.Models.Requests;
+using ConectaTfg.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TfgTemporalName.Models;
-using TfgTemporalName.Services;
+using Microsoft.EntityFrameworkCore;
 
-namespace TfgTemporalName.Controllers;
+namespace ConectaTfg.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -28,7 +31,7 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet]
 	[Authorize]
-	public ActionResult<List<Idea>> GetIdeas()
+	public ActionResult<List<IdeaDto>> GetIdeas()
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
@@ -38,7 +41,28 @@ public class IdeasController : ControllerBase
 		if (user.Role != TUserRole.Profesor)
 			return Forbid();
 
-		return Ok(_dbContext.Ideas);
+		return Ok(
+			_dbContext
+				.Ideas.Include(i => i.User)
+				.Select(i => new IdeaDto
+				{
+					IdeaId = i.IdeaId,
+					Title = i.Title,
+					ShortDescription = i.ShortDescription,
+					Description = i.Description,
+					CreatedAt = i.CreatedAt,
+					Status = i.Status,
+					User = new UserDto
+					{
+						UserId = i.User.UserId,
+						Name = i.User.Name,
+						Surname = i.User.Surname,
+						Email = i.User.Email,
+						Role = i.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>
@@ -48,14 +72,14 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("{ideaId}")]
 	[Authorize]
-	public ActionResult<Idea> GetIdea(int ideaId)
+	public ActionResult<IdeaDto> GetIdea(int ideaId)
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
 		if (user is null)
 			return Unauthorized();
 
-		Idea? idea = _dbContext.Ideas.Find(ideaId);
+		Idea? idea = _dbContext.Ideas.Include(i => i.User).FirstOrDefault(i => i.IdeaId == ideaId);
 
 		if (idea is null)
 			return NotFound();
@@ -63,7 +87,25 @@ public class IdeasController : ControllerBase
 		if (idea.UserId != user.UserId && user.Role != TUserRole.Profesor)
 			return Forbid();
 
-		return Ok(idea);
+		return Ok(
+			new IdeaDto
+			{
+				IdeaId = idea.IdeaId,
+				Title = idea.Title,
+				ShortDescription = idea.ShortDescription,
+				Description = idea.Description,
+				CreatedAt = idea.CreatedAt,
+				Status = idea.Status,
+				User = new UserDto
+				{
+					UserId = idea.User.UserId,
+					Name = idea.User.Name,
+					Surname = idea.User.Surname,
+					Email = idea.User.Email,
+					Role = idea.User.Role
+				}
+			}
+		);
 	}
 
 	/// <summary>
@@ -72,7 +114,7 @@ public class IdeasController : ControllerBase
 	/// <returns></returns>
 	[HttpGet("me")]
 	[Authorize]
-	public ActionResult<List<Idea>> GetMyIdeas()
+	public ActionResult<List<IdeaDto>> GetMyIdeas()
 	{
 		User? user = _authService.GetAuthenticatedUser(User);
 
@@ -82,9 +124,28 @@ public class IdeasController : ControllerBase
 		if (user.Role != TUserRole.Alumno)
 			return Forbid();
 
-		var ideas = _dbContext.Ideas.Where(t => t.UserId == user.UserId);
-
-		return Ok(ideas);
+		return Ok(
+			_dbContext
+				.Ideas.Where(i => i.UserId == user.UserId)
+				.Select(i => new IdeaDto
+				{
+					IdeaId = i.IdeaId,
+					Title = i.Title,
+					ShortDescription = i.ShortDescription,
+					Description = i.Description,
+					CreatedAt = i.CreatedAt,
+					Status = i.Status,
+					User = new UserDto
+					{
+						UserId = i.User.UserId,
+						Name = i.User.Name,
+						Surname = i.User.Surname,
+						Email = i.User.Email,
+						Role = i.User.Role
+					}
+				})
+				.ToList()
+		);
 	}
 
 	/// <summary>
@@ -193,6 +254,116 @@ public class IdeasController : ControllerBase
 			return Forbid();
 
 		_dbContext.Ideas.Remove(idea);
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
+
+	/// <summary>
+	/// Requests the specified Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpPost("{ideaId}/request")]
+	[Authorize]
+	public ActionResult RequestIdea(int ideaId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Profesor)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Find(ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.Available)
+			return BadRequest(new { Message = "Esta idea no está disponible!" });
+
+		idea.UserIdRequested = user.UserId;
+		idea.UserRequestered = user;
+
+		idea.Status = TStatus.WaitingResponse;
+
+		_dbContext.SaveChanges();
+
+		return Ok();
+	}
+
+	/// <summary>
+	/// Gets the User that made the petition of the Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpGet("{ideaId}/petition")]
+	[Authorize]
+	public ActionResult GetPetition(int ideaId)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Include(t => t.UserRequestered).FirstOrDefault(t => t.IdeaId == ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Esta idea no tiene ninguna petición!" });
+
+		return Ok(
+			new UserDto
+			{
+				UserId = idea.UserRequestered!.UserId,
+				Name = idea.UserRequestered!.Name,
+				Surname = idea.UserRequestered!.Surname,
+				Email = idea.UserRequestered!.Email,
+				Role = idea.UserRequestered!.Role
+			}
+		);
+	}
+
+	/// <summary>
+	/// Changes the Status of the Idea
+	/// </summary>
+	/// <param name="ideaId">The ID of the Idea</param>
+	/// <returns></returns>
+	[HttpPut("{ideaId}/status/{isAccepted}")]
+	[Authorize]
+	public ActionResult UpdateStatus(int ideaId, bool isAccepted)
+	{
+		User? user = _authService.GetAuthenticatedUser(User);
+
+		if (user is null)
+			return Unauthorized();
+
+		if (user.Role != TUserRole.Alumno)
+			return Forbid();
+
+		Idea? idea = _dbContext.Ideas.Find(ideaId);
+
+		if (idea is null)
+			return NotFound();
+
+		if (idea.Status != TStatus.WaitingResponse)
+			return BadRequest(new { Message = "Esta idea no tiene ninguna petición!" });
+
+		idea.Status = isAccepted ? TStatus.Accepted : TStatus.Available;
+
+		if (!isAccepted)
+		{
+			idea.UserIdRequested = null;
+			idea.UserRequestered = null;
+		}
+
 		_dbContext.SaveChanges();
 
 		return Ok();

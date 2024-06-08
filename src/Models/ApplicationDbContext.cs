@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 public class ApplicationDbContext : DbContext
 {
@@ -24,7 +24,31 @@ public class ApplicationDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<User>().HasMany(u => u.Topics).WithOne().HasForeignKey(t => t.UserId).IsRequired();
-		modelBuilder.Entity<User>().HasMany(u => u.Ideas).WithOne().HasForeignKey(t => t.UserId).IsRequired();
+		// TODO: Añadir OnUpdate y OnDelete
+		modelBuilder
+			.Entity<Topic>()
+			.HasOne(t => t.User)
+			.WithMany(u => u.Topics)
+			.HasForeignKey(t => t.UserId)
+			.IsRequired();
+
+		modelBuilder
+			.Entity<Topic>()
+			.HasOne(t => t.UserRequestered)
+			.WithMany(u => u.RequestedTopics)
+			.HasForeignKey(t => t.UserIdRequested);
+
+		modelBuilder
+			.Entity<Idea>()
+			.HasOne(i => i.User)
+			.WithMany(u => u.Ideas)
+			.HasForeignKey(i => i.UserId)
+			.IsRequired();
+
+		modelBuilder
+			.Entity<Idea>()
+			.HasOne(i => i.UserRequestered)
+			.WithMany(u => u.RequestedIdeas)
+			.HasForeignKey(i => i.UserIdRequested);
 	}
 }

@@ -1,15 +1,19 @@
 import AuthService from "$lib/AuthService";
-import type { IIdea } from "$lib/IIdea";
+import type { IUser } from "$lib/IUser";
 import { API_URL } from "$lib/constants";
 import { fail, redirect, type Actions } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad } from "../$types";
 
 export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 	AuthService.redirectNotLoggedUsers(locals);
+	AuthService.redirectNotStudents(locals);
+
+	// TODO: Check if is the user who created it
+	// TODO: Error message
 
 	const ideaId = params.slug;
 
-	const response = await fetch(`${API_URL}/ideas/${ideaId}`, {
+	const response = await fetch(`${API_URL}/ideas/${ideaId}/petition`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${cookies.get("session_id")}`,
@@ -17,17 +21,16 @@ export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 	});
 
 	return {
-		idea: (await response.json()) as IIdea,
+		userRequested: (await response.json()) as IUser,
 	};
 };
 
 export const actions: Actions = {
-	request: async ({ request, params, cookies }) => {
+	accept: async ({ params, cookies }) => {
 		const ideaId = params.slug;
 
-		const response = await fetch(`${API_URL}/ideas/${ideaId}/request`, {
-			method: "POST",
-			body: await request.formData(),
+		const response = await fetch(`${API_URL}/ideas/${ideaId}/status/true`, {
+			method: "PUT",
 			headers: {
 				Authorization: `Bearer ${cookies.get("session_id")}`,
 			},
@@ -39,22 +42,24 @@ export const actions: Actions = {
 			return fail(400, { message: data.message });
 		}
 
-		return { success: true };
+		throw redirect(303, `/ideas/${ideaId}`);
 	},
-	delete: async ({ params, cookies }) => {
+	deny: async ({ params, cookies }) => {
 		const ideaId = params.slug;
 
-		const response = await fetch(`${API_URL}/ideas/${ideaId}`, {
-			method: "DELETE",
+		const response = await fetch(`${API_URL}/ideas/${ideaId}/status/false`, {
+			method: "PUT",
 			headers: {
 				Authorization: `Bearer ${cookies.get("session_id")}`,
 			},
 		});
 
 		if (!response.ok) {
-			return fail(403, { message: "No tienes permisos para eliminar esta idea" });
+			const data = await response.json();
+
+			return fail(400, { message: data.message });
 		}
 
-		throw redirect(303, "/perfil");
+		throw redirect(303, `/ideas/${ideaId}`);
 	},
 };

@@ -50,7 +50,7 @@
 		</div>
 		<Button class="btn-ghost pl-2" link="/">
 			<img class="w-14" src={UpmLogo} alt="Logo UPM" />
-			TFG Temporal Name
+			Conecta TFG
 		</Button>
 	</div>
 	<div class="navbar-end hidden lg:flex">
@@ -64,7 +64,7 @@
 				</Button>
 				<Button
 					class="btn-ghost"
-					faIcon={user.role === TUserRole.ALUMNO ? faGraduationCap : faSchool}
+					faIcon={user.role === TUserRole.Alumno ? faGraduationCap : faSchool}
 					link=""
 				>
 					{TUserRole.toText(user.role)}

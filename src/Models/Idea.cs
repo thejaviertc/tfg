@@ -1,7 +1,8 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TfgTemporalName.Models;
+namespace ConectaTfg.Models;
 
 [Table("idea")]
 public class Idea
@@ -23,6 +24,17 @@ public class Idea
 	public required DateTime CreatedAt { get; set; }
 
 	public int UserId { get; set; }
+
+	[ForeignKey("UserId")]
+	public required User User { get; set; }
+
+	[DefaultValue(TStatus.Available)]
+	public required TStatus Status { get; set; }
+
+	public int? UserIdRequested { get; set; }
+
+	[ForeignKey("UserIdRequested")]
+	public User? UserRequestered { get; set; }
 
 	public Idea()
 	{
