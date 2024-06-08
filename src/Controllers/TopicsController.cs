@@ -341,6 +341,13 @@ public class TopicsController : ControllerBase
 			return BadRequest(new { Message = "Este tema no tiene ninguna petición!" });
 
 		topic.Status = isAccepted ? TStatus.Accepted : TStatus.Available;
+
+		if (!isAccepted)
+		{
+			topic.UserIdRequested = null;
+			topic.UserRequestered = null;
+		}
+
 		_dbContext.SaveChanges();
 
 		return Ok();

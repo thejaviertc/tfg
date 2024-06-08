@@ -357,6 +357,13 @@ public class IdeasController : ControllerBase
 			return BadRequest(new { Message = "Esta idea no tiene ninguna petición!" });
 
 		idea.Status = isAccepted ? TStatus.Accepted : TStatus.Available;
+
+		if (!isAccepted)
+		{
+			idea.UserIdRequested = null;
+			idea.UserRequestered = null;
+		}
+
 		_dbContext.SaveChanges();
 
 		return Ok();
