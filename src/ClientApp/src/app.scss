@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html {
+	scrollbar-color: unset;
 	scroll-behavior: smooth;
 	background-color: #2581C4 !important;
 }
@@ -65,3 +66,4 @@ svg {
 	transition: all 0.5s ease;
 	padding: 0;
 }
+
