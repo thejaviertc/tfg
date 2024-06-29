@@ -11,8 +11,8 @@
 
 <FormNotification {form} successMessage="Te has registrado correctamente!" />
 
-<section class="min-h-screen flex gap-8 justify-center items-center">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+<section class="min-h-screen flex flex-col md:flex-row md:gap-8 justify-center items-center">
+	<div class="bg-secondary p-6 mt-10 rounded-xl">
 		<h3 class="text-black">Regístrate:</h3>
 		<form method="POST" action="?/register">
 			<FormInput id="name" label="Nombre" type="text" faIcon={faAddressCard} />

@@ -24,7 +24,7 @@
 			{minlength}
 			{maxlength}
 			{value}
-			class="input input-bordered input-accent pl-12 min-w-80 w-full"
+			class="input input-bordered input-accent pl-12 w-full min-w-72 max-w-96"
 			required
 			disabled={isDisabled}
 		/>

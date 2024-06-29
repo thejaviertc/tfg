@@ -19,7 +19,7 @@
 <FormNotification {form} successMessage="Has actualizado el tema correctamente!" />
 
 <section class="min-h-screen flex justify-center items-center">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+	<div class="bg-secondary p-6 my-10 max-w-96 w-full rounded-xl">
 		<h3 class="text-black">Editar Tema:</h3>
 		<form method="POST" action="?/update">
 			<input type="hidden" id="topicId" name="topicId" value={data.topic.topicId} />

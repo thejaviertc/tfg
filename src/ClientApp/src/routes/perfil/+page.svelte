@@ -23,11 +23,11 @@
 
 <FormNotification
 	{form}
-	successMessage="¡La información ha sido cambiada correctamente!, recarga la página para ver los cambios"
+	successMessage="¡La información ha sido cambiada correctamente!"
 />
 
-<section class="min-h-screen flex gap-8 justify-center items-center">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+<section class="min-h-screen flex flex-col xl:flex-row xl:gap-8 justify-center items-center">
+	<div class="bg-secondary p-6 mt-10 xl:mb-10 mx-4 rounded-xl">
 		<h3 class="text-black">Perfil de {data.user.name} {data.user.surname}:</h3>
 		<div class="divider divider-accent mt-6">Información Básica</div>
 		<form method="POST" action="?/update-info">
@@ -87,126 +87,114 @@
 			<FormButton class="btn-error" faIcon={faTrash}>Eliminar Cuenta</FormButton>
 		</form>
 	</div>
-	<div>
-		{#if data.user.role === TUserRole.Profesor}
-			<div class="bg-secondary p-6 my-10 rounded-xl">
-				<h3 class="text-black">Mis Temas:</h3>
-				<div class="flex flex-wrap gap-4 justify-center mt-4">
-					<div class="overflow-x-auto">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Título</th>
-									<th>Descripcíon Corta</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								{#each data.topics as topic}
-									<tr>
-										<th>{topic.title}</th>
-										<td>{topic.shortDescription}</td>
-										<td class="flex gap-2">
-											<Button
-												class="btn-primary"
-												faIcon={faEye}
-												link="/temas/{topic.topicId}"
-											>
-												Ver
-											</Button>
-											<Button
-												class="btn-warning"
-												faIcon={faPencil}
-												link="/temas/{topic.topicId}/editar"
-											>
-												Editar
-											</Button>
-											{#if topic.status === TStatus.WaitingResponse}
-												<Button
-													class="btn-success"
-													faIcon={faEnvelope}
-													link="/temas/{topic.topicId}/peticion"
-												>
-													Responder
-												</Button>
-											{/if}
-											<form
-												method="POST"
-												action="/temas/{topic.topicId}?/delete"
-											>
-												<button type="submit" class="btn btn-error">
-													<Fa icon={faTrash} />
-													Eliminar
-												</button>
-											</form>
-										</td>
-									</tr>
-								{/each}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		{/if}
-		{#if data.user.role === TUserRole.Alumno}
-			<div class="bg-secondary p-6 my-10 rounded-xl">
-				<h3 class="text-black">Mis Ideas:</h3>
-				<div class="flex flex-wrap gap-4 justify-center mt-4">
-					<div class="overflow-x-auto">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Título</th>
-									<th>Descripcíon Corta</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								{#each data.ideas as idea}
-									<tr>
-										<th>{idea.title}</th>
-										<td>{idea.shortDescription}</td>
-										<td class="flex gap-2">
-											<Button
-												class="btn-primary"
-												faIcon={faEye}
-												link="/ideas/{idea.ideaId}"
-											>
-												Ver
-											</Button>
-											<Button
-												class="btn-warning"
-												faIcon={faPencil}
-												link="/ideas/{idea.ideaId}/editar"
-											>
-												Editar
-											</Button>
-											{#if idea.status === TStatus.WaitingResponse}
-												<Button
-													class="btn-success"
-													faIcon={faEnvelope}
-													link="/ideas/{idea.ideaId}/peticion"
-												>
-													Responder
-												</Button>
-											{/if}
-											<form
-												method="POST"
-												action="/ideas/{idea.ideaId}?/delete"
-											>
-												<button type="submit" class="btn btn-error">
-													<Fa icon={faTrash} />
-													Eliminar
-												</button>
-											</form>
-										</td>
-									</tr>
-								{/each}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		{/if}
-	</div>
+	{#if data.user.role === TUserRole.Profesor}
+		<div class="bg-secondary p-6 my-10 mx-10 rounded-xl">
+			<h3 class="text-black">Mis Temas:</h3>
+			<table class="table mt-4">
+				<thead>
+					<tr>
+						<th>Título</th>
+						<th>Descripcíon Corta</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each data.topics as topic}
+						<tr>
+							<th class="p-3">{topic.title}</th>
+							<td class="p-3">{topic.shortDescription}</td>
+							<td class="p-3">
+								<div class="flex flex-wrap gap-2 items-center justify-center">
+									<Button
+										class="btn-primary"
+										faIcon={faEye}
+										link="/temas/{topic.topicId}"
+									>
+										Ver
+									</Button>
+									<Button
+										class="btn-warning"
+										faIcon={faPencil}
+										link="/temas/{topic.topicId}/editar"
+									>
+										Editar
+									</Button>
+									{#if topic.status === TStatus.WaitingResponse}
+										<Button
+											class="btn-success"
+											faIcon={faEnvelope}
+											link="/temas/{topic.topicId}/peticion"
+										>
+											Responder
+										</Button>
+									{/if}
+									<form method="POST" action="/temas/{topic.topicId}?/delete">
+										<button type="submit" class="btn btn-error">
+											<Fa icon={faTrash} />
+											Eliminar
+										</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
+	{#if data.user.role === TUserRole.Alumno}
+		<div class="bg-secondary p-6 my-10 mx-10 rounded-xl">
+			<h3 class="text-black">Mis Ideas:</h3>
+			<table class="table mt-4">
+				<thead>
+					<tr>
+						<th>Título</th>
+						<th>Descripción Corta</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each data.ideas as idea}
+						<tr>
+							<th class="p-3">{idea.title}</th>
+							<td class="p-3">{idea.shortDescription}</td>
+							<td class="p-3">
+								<div class="flex flex-wrap gap-2 items-center justify-center">
+									<Button
+										class="btn-primary"
+										faIcon={faEye}
+										link="/ideas/{idea.ideaId}"
+									>
+										Ver
+									</Button>
+									<Button
+										class="btn-warning"
+										faIcon={faPencil}
+										link="/ideas/{idea.ideaId}/editar"
+									>
+										Editar
+									</Button>
+									{#if idea.status === TStatus.WaitingResponse}
+										<Button
+											class="btn-success"
+											faIcon={faEnvelope}
+											link="/ideas/{idea.ideaId}/peticion"
+										>
+											Responder
+										</Button>
+									{/if}
+									<form method="POST" action="/ideas/{idea.ideaId}?/delete">
+										<button type="submit" class="btn btn-error">
+											<Fa icon={faTrash} />
+											Eliminar
+										</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
 </section>

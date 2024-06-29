@@ -19,7 +19,7 @@
 <FormNotification {form} successMessage="Has actualizado la idea correctamente!" />
 
 <section class="min-h-screen flex justify-center items-center">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+	<div class="bg-secondary p-6 my-10 max-w-96 w-full rounded-xl">
 		<h3 class="text-black">Editar Idea:</h3>
 		<form method="POST" action="?/update">
 			<input type="hidden" id="ideaId" name="ideaId" value={data.idea.ideaId} />

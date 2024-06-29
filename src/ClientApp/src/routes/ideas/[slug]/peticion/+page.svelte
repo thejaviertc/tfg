@@ -8,7 +8,7 @@
 </script>
 
 <section class="min-h-screen flex justify-center items-center">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+	<div class="bg-secondary p-6 my-10 max-w-96 w-full rounded-xl">
 		<h3 class="text-black">
 			Petición de {data.userRequested.name}
 			{data.userRequested.surname}:

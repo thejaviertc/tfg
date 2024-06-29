@@ -14,8 +14,8 @@
 
 <FormNotification {form} successMessage="Has solicitado el tema correctamente!" />
 
-<section class="min-h-screen hero px-72">
-	<div class="bg-secondary p-6 my-10 rounded-xl">
+<section class="min-h-screen hero">
+	<div class="bg-secondary p-6 my-10 mx-10 md:mx-28 rounded-xl">
 		<h3 class="text-black mb-2">{data.topic.title}</h3>
 		<div class="flex flex-wrap gap-2">
 			<Badge class="badge-primary" faIcon={faUser}>

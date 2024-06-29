@@ -25,7 +25,7 @@
 	});
 </script>
 
-<div class="toast toast-end">
+<div class="toast toast-center lg:toast-end z-50">
 	<div role="alert" class="alert alert-{type} my-4">
 		<Fa icon={faIcon} />
 		<slot />
