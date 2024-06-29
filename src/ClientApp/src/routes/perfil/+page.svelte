@@ -21,7 +21,10 @@
 	export let form: ActionData;
 </script>
 
-<FormNotification {form} successMessage="La información ha sido cambiada correctamente!" />
+<FormNotification
+	{form}
+	successMessage="¡La información ha sido cambiada correctamente!, recarga la página para ver los cambios"
+/>
 
 <section class="min-h-screen flex gap-8 justify-center items-center">
 	<div class="bg-secondary p-6 my-10 rounded-xl">

@@ -44,6 +44,9 @@ public class AuthController : ControllerBase
 
 		user.Password = _authService.GenerateHashedPassword(user, user.Password);
 
+		if (user.Email.Contains("@upm.es"))
+			user.Role = TUserRole.Profesor;
+
 		_dbContext.Users.Add(user);
 		_dbContext.SaveChanges();
 
