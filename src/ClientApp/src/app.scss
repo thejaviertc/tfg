@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-	scrollbar-color: unset;
+	scrollbar-color: unset !important;
 	scroll-behavior: smooth;
 	background-color: #2581C4 !important;
 }
