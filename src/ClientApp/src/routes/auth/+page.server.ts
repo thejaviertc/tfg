@@ -42,7 +42,7 @@ export const actions: Actions = {
 			path: "/",
 			httpOnly: true,
 			sameSite: "strict",
-			maxAge: 60 * 24 * 7 * 4 * 12, // TODO: Change on release
+			maxAge: 60 * 60 * 24 * 7,
 		});
 
 		throw redirect(303, "/");

@@ -75,7 +75,7 @@ public class AuthService : IAuthService
 			_configuration["Jwt:Issuer"],
 			_configuration["Jwt:Audience"],
 			claims,
-			expires: DateTime.Now.AddMinutes(60 * 24 * 7 * 4 * 12), // TODO: Change
+			expires: DateTime.Now.AddMinutes(60 * 24 * 7),
 			signingCredentials: _signingCredentials
 		);
 
