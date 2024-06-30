@@ -21,7 +21,6 @@ public class IdeasController : ControllerBase
 		_dbContext = dbContext;
 		_authService = authService;
 
-		// TODO: Remove
 		_dbContext.Database.EnsureCreated();
 	}
 

@@ -32,9 +32,6 @@ builder
 
 builder.Services.AddAuthorization();
 
-// TODO: Disable on release
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
