@@ -1,15 +1,12 @@
 import AuthService from "$lib/AuthService";
 import type { ITopic } from "$lib/ITopic";
 import { API_URL } from "$lib/constants";
-import { fail, type Actions } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "../$types";
 
 export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 	AuthService.redirectNotLoggedUsers(locals);
 	AuthService.redirectNotTeachers(locals);
-
-	// TODO: Check if is the user who created it
-	// TODO: Error message
 
 	const topicId = params.slug;
 
@@ -19,6 +16,10 @@ export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 			Authorization: `Bearer ${cookies.get("session_id")}`,
 		},
 	});
+
+	if (!response.ok) {
+		throw redirect(302, "/topics");
+	}
 
 	return {
 		topic: (await response.json()) as ITopic,

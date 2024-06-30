@@ -24,7 +24,6 @@ public class ApplicationDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		// TODO: Añadir OnUpdate y OnDelete
 		modelBuilder
 			.Entity<Topic>()
 			.HasOne(t => t.User)

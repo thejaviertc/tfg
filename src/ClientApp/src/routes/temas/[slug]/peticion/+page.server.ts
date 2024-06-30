@@ -8,9 +8,6 @@ export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 	AuthService.redirectNotLoggedUsers(locals);
 	AuthService.redirectNotTeachers(locals);
 
-	// TODO: Check if is the user who created it
-	// TODO: Error message
-
 	const topicId = params.slug;
 
 	const response = await fetch(`${API_URL}/topics/${topicId}/petition`, {
@@ -19,6 +16,10 @@ export const load: PageServerLoad = async ({ cookies, locals, params }) => {
 			Authorization: `Bearer ${cookies.get("session_id")}`,
 		},
 	});
+
+	if (!response.ok) {
+		throw redirect(302, "/topics");
+	}
 
 	return {
 		userRequested: (await response.json()) as IUser,
