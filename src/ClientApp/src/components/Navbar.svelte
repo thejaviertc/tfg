@@ -11,7 +11,6 @@
 		faGraduationCap,
 		faLightbulb,
 		faSchool,
-		faTriangleExclamation,
 		faUser,
 	} from "@fortawesome/free-solid-svg-icons";
 	import { onMount } from "svelte";
