@@ -53,7 +53,7 @@ public class IdeasController : ControllerBase
 					Status = i.Status,
 					User = new UserDto
 					{
-						UserId = i.User.UserId,
+						UserId = i.User!.UserId,
 						Name = i.User.Name,
 						Surname = i.User.Surname,
 						Email = i.User.Email,
@@ -97,7 +97,7 @@ public class IdeasController : ControllerBase
 				Status = idea.Status,
 				User = new UserDto
 				{
-					UserId = idea.User.UserId,
+					UserId = idea.User!.UserId,
 					Name = idea.User.Name,
 					Surname = idea.User.Surname,
 					Email = idea.User.Email,
@@ -136,7 +136,7 @@ public class IdeasController : ControllerBase
 					Status = i.Status,
 					User = new UserDto
 					{
-						UserId = i.User.UserId,
+						UserId = i.User!.UserId,
 						Name = i.User.Name,
 						Surname = i.User.Surname,
 						Email = i.User.Email,
@@ -167,8 +167,8 @@ public class IdeasController : ControllerBase
 		if (!ModelState.IsValid)
 			return BadRequest();
 
-		if (idea.Title.Length < 6 || idea.Title.Length > 50)
-			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+		if (idea.Title.Length < 20 || idea.Title.Length > 100)
+			return BadRequest(new { Message = "El título tiene que tener entre 20 y 100 carácteres" });
 
 		if (idea.ShortDescription.Length < 20 || idea.ShortDescription.Length > 255)
 			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });
@@ -209,8 +209,8 @@ public class IdeasController : ControllerBase
 		if (idea.UserId != user.UserId)
 			return Forbid();
 
-		if (idea.Title.Length < 6 || idea.Title.Length > 50)
-			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+		if (idea.Title.Length < 20 || idea.Title.Length > 100)
+			return BadRequest(new { Message = "El título tiene que tener entre 20 y 100 carácteres" });
 
 		if (idea.ShortDescription.Length < 20 || idea.ShortDescription.Length > 255)
 			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });

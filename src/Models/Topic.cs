@@ -11,7 +11,7 @@ public class Topic
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int TopicId { get; set; }
 
-	[Column(TypeName = "VARCHAR(50)")]
+	[Column(TypeName = "VARCHAR(100)")]
 	public required string Title { get; set; }
 
 	[Column(TypeName = "VARCHAR(255)")]
@@ -23,10 +23,10 @@ public class Topic
 	[Column(TypeName = "DATETIME")]
 	public required DateTime CreatedAt { get; set; }
 
-	public int UserId { get; set; }
+	public int? UserId { get; set; }
 
 	[ForeignKey("UserId")]
-	public required User User { get; set; }
+	public User? User { get; set; }
 
 	[DefaultValue(TStatus.Available)]
 	public required TStatus Status { get; set; }

@@ -45,7 +45,7 @@ public class TopicsController : ControllerBase
 					Status = t.Status,
 					User = new UserDto
 					{
-						UserId = t.User.UserId,
+						UserId = t.User!.UserId,
 						Name = t.User.Name,
 						Surname = t.User.Surname,
 						Email = t.User.Email,
@@ -81,7 +81,7 @@ public class TopicsController : ControllerBase
 				Status = topic.Status,
 				User = new UserDto
 				{
-					UserId = topic.User.UserId,
+					UserId = topic.User!.UserId,
 					Name = topic.User.Name,
 					Surname = topic.User.Surname,
 					Email = topic.User.Email,
@@ -120,7 +120,7 @@ public class TopicsController : ControllerBase
 					Status = t.Status,
 					User = new UserDto
 					{
-						UserId = t.User.UserId,
+						UserId = t.User!.UserId,
 						Name = t.User.Name,
 						Surname = t.User.Surname,
 						Email = t.User.Email,
@@ -151,8 +151,8 @@ public class TopicsController : ControllerBase
 		if (!ModelState.IsValid)
 			return BadRequest();
 
-		if (topic.Title.Length < 6 || topic.Title.Length > 50)
-			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+		if (topic.Title.Length < 20 || topic.Title.Length > 100)
+			return BadRequest(new { Message = "El título tiene que tener entre 20 y 100 carácteres" });
 
 		if (topic.ShortDescription.Length < 20 || topic.ShortDescription.Length > 255)
 			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });
@@ -193,8 +193,8 @@ public class TopicsController : ControllerBase
 		if (topic.UserId != user.UserId)
 			return Forbid();
 
-		if (topic.Title.Length < 6 || topic.Title.Length > 50)
-			return BadRequest(new { Message = "El título tiene que tener entre 6 y 50 carácteres" });
+		if (topic.Title.Length < 20 || topic.Title.Length > 100)
+			return BadRequest(new { Message = "El título tiene que tener entre 20 y 100 carácteres" });
 
 		if (topic.ShortDescription.Length < 20 || topic.ShortDescription.Length > 255)
 			return BadRequest(new { Message = "La descripción corta tiene que tener entre 20 y 255 carácteres" });
