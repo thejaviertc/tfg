@@ -14,7 +14,7 @@
 
 <div class="form-control">
 	<label for={id} class="label">{label}:</label>
-	<div class="label">
+	<div class="label relative">
 		<Fa icon={faIcon} class="absolute pl-5" />
 		<input
 			{id}
@@ -24,7 +24,7 @@
 			{minlength}
 			{maxlength}
 			{value}
-			class="input input-bordered input-accent pl-12 w-full min-w-72 max-w-96"
+			class="input input-bordered input-accent pl-12 w-full"
 			required
 			disabled={isDisabled}
 		/>

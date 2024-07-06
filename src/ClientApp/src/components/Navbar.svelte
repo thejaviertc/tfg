@@ -80,7 +80,7 @@
 				<Button class="btn-ghost" faIcon={faLightbulb} link="/ideas">Ideas</Button>
 				<Button class="btn-ghost" faIcon={faBook} link="/temas">Temas</Button>
 				<Button class="btn-ghost" faIcon={faAddressCard} link="/perfil">
-					Bienvenido, {user.name}
+					Bienvenid@, {user.name}
 					{user.surname}
 				</Button>
 				<Button

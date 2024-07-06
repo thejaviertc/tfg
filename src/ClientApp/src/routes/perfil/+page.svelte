@@ -26,8 +26,8 @@
 	successMessage="¡La información ha sido cambiada correctamente!"
 />
 
-<section class="min-h-screen flex flex-col xl:flex-row xl:gap-8 justify-center items-center">
-	<div class="bg-secondary p-6 mt-10 xl:mb-10 mx-4 rounded-xl">
+<section class="min-h-screen flex flex-col xl:flex-row xl:gap-8 justify-center items-center p-10">
+	<div class="bg-secondary p-6 max-w-xl w-full rounded-xl">
 		<h3 class="text-black">Perfil de {data.user.name} {data.user.surname}:</h3>
 		<div class="divider divider-accent mt-6">Información Básica</div>
 		<form method="POST" action="?/update-info">
@@ -87,8 +87,8 @@
 			<FormButton class="btn-error" faIcon={faTrash}>Eliminar Cuenta</FormButton>
 		</form>
 	</div>
-	{#if data.user.role === TUserRole.Profesor}
-		<div class="bg-secondary p-6 my-10 mx-10 rounded-xl">
+	{#if data.user.role === TUserRole.Profesor && data.topics.length > 0}
+		<div class="bg-secondary p-6 mt-10 xl:mt-0 max-w-5xl w-full rounded-xl">
 			<h3 class="text-black">Mis Temas:</h3>
 			<table class="table mt-4">
 				<thead>
@@ -142,8 +142,8 @@
 			</table>
 		</div>
 	{/if}
-	{#if data.user.role === TUserRole.Alumno}
-		<div class="bg-secondary p-6 my-10 mx-10 rounded-xl">
+	{#if data.user.role === TUserRole.Alumno && data.ideas.length > 0}
+		<div class="bg-secondary p-6 mt-10 xl:mt-0 max-w-5xl w-full rounded-xl">
 			<h3 class="text-black">Mis Ideas:</h3>
 			<table class="table mt-4">
 				<thead>

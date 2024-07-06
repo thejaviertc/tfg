@@ -13,7 +13,7 @@
 
 <div class="form-control">
 	<label for={id} class="label">{label}:</label>
-	<div class="label w-72">
+	<div class="label relative">
 		<Fa icon={faIcon} class="absolute pl-5" />
 		<textarea
 			{id}
@@ -22,7 +22,7 @@
 			{minlength}
 			{maxlength}
 			{value}
-			class="textarea textarea-bordered textarea-accent pl-12 min-w-80 w-full"
+			class="textarea textarea-bordered textarea-accent pl-12 w-full"
 			required
 			disabled={isDisabled}
 		></textarea>

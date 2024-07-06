@@ -18,7 +18,7 @@
 <FormNotification {form} />
 
 <section class="min-h-screen flex justify-center items-center">
-	<div class="bg-secondary p-6 my-10 max-w-96 w-full rounded-xl">
+	<div class="bg-secondary p-6 m-10 max-w-3xl w-full rounded-xl">
 		<h3 class="text-black">Crear Tema:</h3>
 		<form method="POST" action="?/add">
 			<FormInput
@@ -26,8 +26,8 @@
 				label="Título"
 				type="text"
 				faIcon={faHeading}
-				minlength={6}
-				maxlength={50}
+				minlength={20}
+				maxlength={100}
 			/>
 			<FormTextArea
 				id="shortDescription"
