@@ -60,6 +60,7 @@ public class IdeasController : ControllerBase
 						Role = i.User.Role
 					}
 				})
+				.OrderByDescending(i => i.CreatedAt)
 				.ToList()
 		);
 	}
@@ -143,6 +144,7 @@ public class IdeasController : ControllerBase
 						Role = i.User.Role
 					}
 				})
+				.OrderByDescending(i => i.CreatedAt)
 				.ToList()
 		);
 	}

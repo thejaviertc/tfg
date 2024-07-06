@@ -52,6 +52,7 @@ public class TopicsController : ControllerBase
 						Role = t.User.Role
 					}
 				})
+				.OrderByDescending(t => t.CreatedAt)
 				.ToList()
 		);
 	}
@@ -127,6 +128,7 @@ public class TopicsController : ControllerBase
 						Role = t.User.Role
 					}
 				})
+				.OrderByDescending(t => t.CreatedAt)
 				.ToList()
 		);
 	}
