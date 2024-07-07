@@ -36,15 +36,15 @@
   dotnet user-secrets init
   ```
 
-- **Mover la carpeta 35b70688-c077-47af-befa-6500ff4a730b que está en la raíz del proyecto a %appdata%/Microsoft/UserSecrets.**
+- **Mover la carpeta "35b70688-c077-47af-befa-6500ff4a730b" que está en la raíz del proyecto a "%appdata%/Microsoft/UserSecrets"**
 
   También se puede realizar usando una extensión en Visual Studio Code para gestionar los secretos de una aplicación de .NET, o con Visual Studio 2022 nativamente. He decidido explicarlo así para evitar fallos.
 
   Quedará en `C:\Users\NOMBRE_USUARIO\AppData\Roaming\Microsoft\UserSecrets`.
 
-- **Modificar el fichero secrets.json incluido en la carpeta 35b70688-c077-47af-befa-6500ff4a730b con los valores necesarios:**
+- **Modificar el fichero "secrets.json" incluido en la carpeta "35b70688-c077-47af-befa-6500ff4a730b" con los valores necesarios:**
 
-  Cambia database por el nombre de la BBDD, uid por el nombre del usuario de la BBDD y pwd por la contraseña del usuario.
+  Cambia `database` por el nombre de la BBDD, `uid` por el nombre del usuario de la BBDD y `pwd` por la contraseña del usuario.
 
   El key que hay dentro de JWT es la clave que se usa para generar los JWT. Como esta aplicación no va a ser usada públicamente, da igual qué valor tenga, por lo que he dejado en la plantilla el que he usado.
 
